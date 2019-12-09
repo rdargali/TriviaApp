@@ -10,25 +10,20 @@ function displayPreview(quiz) {
     // text(string)
     // answers[] (string)
 
-    const quizDiv = document.getElementById('quizDiv');
+    const question = document.getElementById('question');
+    const answers = document.getElementById('answers');
 
     // add header info
-    quizName = `<div>${quiz.name}</div>`;
-    quizOwner =  `<div>${quiz.owner}</div>`;
+    // where is this going to go??
 
-    for q in quiz.quizQuestions {
+    for (let i = 0; i < quiz.questions.length; i++) {
         // add each question
-        questionHTML = `<div><div>${q.text}</div>`;
-        answersHTML = ''
-        for a in q.answers {
-            
+        q = quiz.questions[i];
+        question.innerHTML = q.text;
+        answer_elements = answers.children; 
+        for (let j = 0; j < q.answers.length; j++) {
+            a = q.answers[j];
+            answer_elements[j].innerHTML = a;
         }
-        closingHTML = `</div>`
-
     }
-
-    quizHTML = `${quizName}${quizOwner}`;
-
-    quizDiv.innerHTML = quizHTML;
 }
-
