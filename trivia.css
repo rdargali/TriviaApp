@@ -1,0 +1,18 @@
+* {
+  margin: 0;
+}
+
+.jumbotron {
+  background-color: blueviolet;
+  color: white;
+}
+
+#answers {
+  background-color: violet;
+  height: 150px;
+}
+
+#users {
+  background-color: lightskyblue;
+  height: 100px;
+}
