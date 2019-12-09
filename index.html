@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Log in</title>
-    <link rel="stylesheet" href="trivia.css" class="style" />
-  </head>
-  <body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Trivia</title>
+<!-- STYLE SHEETS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="trivia.css">
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row justify-content-center min-vw-100">
+<!-- LOGIN /REGISTER SECTION -->
+  <section id="login">
     <input type="email" placeholder="Enter Email" id="registerEmailTextBox" />
     <input
       type="password"
@@ -15,9 +21,7 @@
       id="registerPasswordTextBox"
     />
     <button id="registerButton">Register</button>
-
     <br />
-
     <input type="email" placeholder="Enter Email" id="logInEmailTextBox" />
     <input
       type="password"
@@ -25,22 +29,69 @@
       id="logInPasswordTextBox"
     />
     <button id="logInButton">Log In</button>
-
     <br />
     <button id="">Log Out</button>
+  </section>
+<!-- LANDING PAGE/SHOW AFTER USER LOGS IN TO GENERATE QUIZ-->
+  <section id="landing" style="display: none">
+    <input id="numberOfQuestions" type="number" placeholder="Number of Questions" min="1" max="50" value="10">
+    <br>
+    <select id="categoryMenu">
+    </select>
+    <br>
+    <select id="difficulty">
+      <option value="">Any Difficulty</option>
+      <option value="easy">Easy</option>
+      <option value="medium">Medium</option>
+      <option value="hard">Hard</option>
+    </select>
+    <br>
+    <select id="questionType">
+      <option value="">Any Type</option>
+      <option value="multiple">Multiple Choice</option>
+      <option value="boolean">True / False</option>
+    </select>
+    <br>
+    <button id="getem">GO</button>
+  </section>
 
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/7.5.2/firebase-app.js"></script>
+<!-- PLAY & DISPLAY GAME SECTION -->
+<section id="play" style="display: none">
+  <div class="question justify-content-center" id="main">
+    <div class="row">
+      <div class="col">
+        <h4 class="text-right" id="questionnum">Question number</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h1 class="display-4" id="question">Question Area</h1>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center" id="answers">
+    <!-- 1 - 4 elements of form: <div class="col">Answer 1</div> --> 
+    <div class="col">Answer 1</div>
+    <div class="col">Answer 2</div>
+    <div class="col">Answer 3</div>
+    <div class="col">Answer 4</div>
+  </div>
+  <div class="row justify-content-center" id="users">
+    <div class="col">Users
+    </div>
+  </div>
+</section>
+</div>
+</div>
 
-    <!-- Authentication Library for Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/7.5.2/firebase-auth.js"></script>
-
-    <script src="https://www.gstatic.com/firebasejs/7.5.2/firebase-database.js"></script>
-
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
-
-    <script>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.5.2/firebase-app.js"></script>
+<!-- Authentication Library for Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/7.5.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.5.2/firebase-database.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use
+https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script>
       // Your web app's Firebase configuration
       var firebaseConfig = {
         apiKey: "AIzaSyCYVrGcmSuM1DpVfpF32eLCj9FYCTk8RC8",
@@ -53,7 +104,11 @@
       };
       // Initialize Firebase
       firebase.initializeApp(firebaseConfig);
-    </script>
+      </script>
     <script src="scripts/login.js"></script>
+    <script src="scripts/home.js"></script>
+    <script src="scripts/classes.js"></script>
+    <script src="scripts/displayquestion.js"></script>
+    <script src="scripts/test_displayquestion.js"></script>
   </body>
 </html>
