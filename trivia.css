@@ -2,17 +2,25 @@
   margin: 0;
 }
 
-.jumbotron {
+.container-fluid {
+  min-height: 100vh;
+}
+
+.question {
   background-color: blueviolet;
   color: white;
+  height: 300px;
+  width: 100%;
 }
 
 #answers {
   background-color: violet;
-  height: 150px;
+  height: 175px;
+  width: 100%;
 }
 
 #users {
   background-color: lightskyblue;
-  height: 100px;
+  height: 200px;
+  width: 100%;
 }
