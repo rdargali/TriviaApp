@@ -17,7 +17,7 @@ function displayQuestion(quiz,n) {
 
     // add header info
     headerHTML = `<div class="col">Quiz title: ${quiz.name}</div>
-                <div class="col">Quiz owner: ${quiz.owner}</div>`;
+                <div cl ass="col">Quiz owner: ${quiz.owner}</div>`;
     users.innerHTML = headerHTML;
 
     // get the nth question from this quiz
