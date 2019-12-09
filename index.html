@@ -8,14 +8,22 @@
     <link rel="stylesheet" href="trivia.css" class="style" />
   </head>
   <body>
-    <input type="email" id="registerEmailTextBox" />
-    <input type="password" id="registerPasswordTextBox" />
+    <input type="email" placeholder="Enter Email" id="registerEmailTextBox" />
+    <input
+      type="password"
+      placeholder="Enter Password"
+      id="registerPasswordTextBox"
+    />
     <button id="registerButton">Register</button>
 
     <br />
 
-    <input type="email" id="logInEmailTextBox" />
-    <input type="password" id="logInPasswordTextBox" />
+    <input type="email" placeholder="Enter Email" id="logInEmailTextBox" />
+    <input
+      type="password"
+      placeholder="Enter Password"
+      id="logInPasswordTextBox"
+    />
     <button id="logInButton">Log In</button>
 
     <br />
@@ -46,6 +54,6 @@
       // Initialize Firebase
       firebase.initializeApp(firebaseConfig);
     </script>
-    <script src="/scripts/login.js"></script>
+    <script src="scripts/login.js"></script>
   </body>
 </html>
