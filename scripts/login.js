@@ -42,6 +42,7 @@ logInButton.addEventListener("click", () => {
       var errorMessage = error.message;
       // ...
     });
+  redirect();
 });
 
 //log out button
@@ -55,3 +56,7 @@ logOutButton.addEventListener("click", () => {
       // An error happened.
     });
 });
+
+function redirect() {
+  window.location.href = "home.html";
+}
