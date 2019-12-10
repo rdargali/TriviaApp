@@ -14,9 +14,16 @@
 }
 
 #answers {
-  background-color: violet;
-  height: 175px;
+  padding: 10px;
+  height: 150px;
   width: 100%;
+}
+
+#answers button {
+  border-radius: 65%;
+  background-color: violet;
+  width: 150px;
+  height: 100px;
 }
 
 #users {
