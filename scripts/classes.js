@@ -15,7 +15,8 @@ class Question {
 }
 
 class User {
-    constructor(uid) {
+    constructor(uid, email) {
         this.uid = uid;
+        this.email = email;
     }
 }
