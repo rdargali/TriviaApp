@@ -26,8 +26,23 @@ function displayQuestion(quiz,n) {
     question.innerHTML = q.text;
 
     answersHTML = [];
+    answersHTML.push(`<div class="col"><button class="right">${q.answers[q.correctanswer]}</button></div>`);
     for (let j = 0; j < q.answers.length; j++) {
-        answersHTML.push(`<div class="col"><button>${q.answers[j]}</button></div>`); 
+        if (j != q.correctanswer) {
+            answersHTML.push(`<div class="col"><button class="wrong">${q.answers[j]}</button></div>`);
+        }
     }
+    shuffle(answersHTML);
     answers.innerHTML = answersHTML.join(' ');
+}
+
+function shuffle(array) {
+    // use the Fisher-Yates shuffle algorithm to randomize the answers order
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1)); // random index from 0 to i
+    
+        // swap elements array[i] and array[j] - this is the same as:
+        // let t = array[i]; array[i] = array[j]; array[j] = t
+        [array[i], array[j]] = [array[j], array[i]];
+      }
 }

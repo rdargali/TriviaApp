@@ -21,9 +21,16 @@
 
 #answers button {
   border-radius: 65%;
-  background-color: violet;
   width: 150px;
   height: 100px;
+}
+
+.wrong {
+  background-color: violet;
+}
+
+.right {
+  background-color: lightgreen;
 }
 
 #users {
@@ -31,3 +38,4 @@
   height: 200px;
   width: 100%;
 }
+
