@@ -39,3 +39,11 @@
   width: 100%;
 }
 
+#landing select,
+#getem {
+  width: 100%;
+}
+
+#numberOfQuestions {
+  width: 328px;
+}
