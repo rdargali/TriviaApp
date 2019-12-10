@@ -52,23 +52,27 @@
       </div>
   </section>
 <!-- LANDING PAGE/SHOW AFTER USER LOGS IN TO GENERATE QUIZ-->
-<section id="landing">
+<section id="landing" class="container-fluid">
+  <div class="col-lg-4">
   <label># of Questions</label>
   <input id="numberOfQuestions" type="number" placeholder="Number of Questions" min="1" max="50" value="10">
+  <br>
   <select class="custom-select-mx-auto" id="categoryMenu">
-  </select>
+  </select><br>
   <select class="custom-select-mx-auto" id="difficulty">
     <option value="">Any Difficulty</option>
     <option value="easy">Easy</option>
     <option value="medium">Medium</option>
     <option value="hard">Hard</option>
-  </select>
+  </select><br>
   <select class="custom-select-mx-auto" id="questionType">
     <option value="">Any Type</option>
     <option value="multiple">Multiple Choice</option>
     <option value="boolean">True / False</option>
-  </select>
+  </select><br>
   <button id="getem">GO</button>
+</div>
+<div class="col-lg-8"></div>
 </section>
 
 <!-- PLAY & DISPLAY GAME SECTION -->
