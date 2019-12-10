@@ -14,15 +14,15 @@
     <div class="justify-content-center min-vw-100">
       <nav class="navbar navbar-light bg-primary">
         <span class="navbar-brand mb-0 h1">Trivia</span>
+        <!-- welcome user
+        home link -->
           <button id="logOutButton">Log Out</button> 
       </nav>
 <!-- LOGIN /REGISTER SECTION -->
-<<<<<<< HEAD
-<section id="loginRegister">
+<section id="login">
   <div class="container py-5">
     <div class="row">
       <h2>Sign-up</h2>
-      <form>
         <div class="col-md-10 mx-auto">
         </div>
         <div class="form-group col">
@@ -35,11 +35,9 @@
           <button id="registerButton">Register</button>
         </div>
       </div>
-    </form>
     <div class="container py-5">
       <div class="row">
         <h2>Login</h2>
-        <form>
           <div class="col-md-10 mx-auto">
           </div>
           <div class="form-group col">  
@@ -51,11 +49,10 @@
           <div class="col">
             <button id="logInButton">Log In</button>
           </div>
-        </form>
       </div>
   </section>
 <!-- LANDING PAGE/SHOW AFTER USER LOGS IN TO GENERATE QUIZ-->
-<section id="home">
+<section id="landing">
   <label># of Questions</label>
   <input id="numberOfQuestions" type="number" placeholder="Number of Questions" min="1" max="50" value="10">
   <select class="custom-select-mx-auto" id="categoryMenu">
@@ -75,7 +72,7 @@
 </section>
 
 <!-- PLAY & DISPLAY GAME SECTION -->
-<section id="play" style="display: none">
+<section id="play">
   <div class="question row justify-content-center" id="main">
     <div class="row">
       <div class="col">
@@ -123,8 +120,7 @@ https://firebase.google.com/docs/web/setup#available-libraries -->
       };
       // Initialize Firebase
       firebase.initializeApp(firebaseConfig);
-    </script>
-      </script>
+  </script>
     <script src="scripts/classes.js"></script>
     <script src="scripts/login.js"></script>
     <script src="scripts/home.js"></script>

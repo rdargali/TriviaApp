@@ -28,7 +28,7 @@ registerButton.addEventListener("click", () => {
       // Handle Errors here.
       var errorCode = error.code;
       var errorMessage = error.message;
-      // ...
+      console.log(errorMessage)
     });
 });
 
@@ -44,7 +44,7 @@ logInButton.addEventListener("click", () => {
       // Handle Errors here.
       var errorCode = error.code;
       var errorMessage = error.message;
-      // ...
+      console.log(errorMessage)
     });
   //redirect();
 });
@@ -70,14 +70,14 @@ firebase.auth().onAuthStateChanged(function(user) {
       // a user has signed in
       login.style.display = 'none';
       landing.style.display = 'block';
-      //console.log(user);
+      // console.log(user);
       }
   else {
       // no user is signed in
       login.style.display = 'block';
       landing.style.display = 'none';
       play.style.display = 'none';
-      //console.log('no user')
+      // console.log('no user')
   }
 });
 
