@@ -72,6 +72,7 @@ firebase.auth().onAuthStateChanged(function(user) {
       login.style.display = 'none';
       landing.style.display = 'block';
       appUser = new User(user.uid);
+      firebase.database().ref('users/'+appUser.uid).on('value', (snapshot) => {updateUserQuizzes(snapshot)});
       }
   else {
       // no user is signed in

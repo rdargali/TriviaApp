@@ -74,6 +74,9 @@ function previewquiz(response) {
         qnum += 1
         if (qnum == myquiz.questions.length) {
             clearInterval(id);
+            login.style.display = 'none';
+            landing.style.display = 'block';
+            play.style.display = 'none';
         }
         else {
         displayQuestion(myquiz, qnum);
