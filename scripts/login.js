@@ -16,9 +16,6 @@ const login = document.getElementById("login");
 const landing = document.getElementById("landing");
 const play = document.getElementById("play");
 
-// DEO - force logout on load
-simulateClickLogout();
-
 //register button
 registerButton.addEventListener("click", () => {
   let email = registerEmailTextBox.value;
@@ -92,8 +89,11 @@ function simulateClickLogout() {
       cancelable: true
   });
        
-  var cancelled = !logOutButton.dispatchEvent(event);
+  let cancelled = !logOutButton.dispatchEvent(event);
   if (cancelled) {
       // A handler called preventDefault
   }
 }
+
+// DEO - force logout on load
+simulateClickLogout();
