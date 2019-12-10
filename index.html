@@ -11,9 +11,9 @@
 </head>
 <body>
   <div class="container-fluid">
-    <div class="justify-content-center min-vw-100">
-      <nav class="navbar navbar-light bg-primary">
-        <span class="navbar-brand mb-0 h1" id="banner">Trivia</span>
+    <div class="justify-content-center">
+      <nav class="navbar navbar-light">
+        <span class="mw-100 navbar-brand mb-0 h1 text-white" id="banner">Trivia</span>
         <!-- welcome user
         home link -->
           <button id="logOutButton">Log Out</button> 
@@ -73,32 +73,33 @@
 
 <!-- PLAY & DISPLAY GAME SECTION -->
 <section id="play">
-  <div class="question row justify-content-center" id="main">
-    <div class="row">
-      <div class="col">
-        <h4 class="text-right" id="questionnum">Question number</h4>
+    <div class="container-fluid question">
+      <div>
+        <div class="row justify-content-center">
+          <h5 id="questionnum">Question number</h5>
+        </div>
+        <div class="row justify-content-center">
+          <div>        
+            <h1 class="display-5" id="question">Question Area</h1>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-center" id="answers">
+        <!-- 1 - 4 elements of form: <div class="col">Answer 1</div> --> 
+        <div class="col">Answer 1</div>
+        <div class="col">Answer 2</div>
+        <div class="col">Answer 3</div>
+        <div class="col">Answer 4</div>
+      </div>
+      <div class="row justify-content-center" id="users">
+        <div class="col">Users
+        </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col">
-        <h1 class="display-4" id="question">Question Area</h1>
-      </div>
-    </div>
+  </section>
   </div>
-  <div class="row justify-content-center" id="answers">
-    <!-- 1 - 4 elements of form: <div class="col">Answer 1</div> --> 
-    <div class="col">Answer 1</div>
-    <div class="col">Answer 2</div>
-    <div class="col">Answer 3</div>
-    <div class="col">Answer 4</div>
   </div>
-  <div class="row justify-content-center" id="users">
-    <div class="col">Users
-    </div>
-  </div>
-</section>
-</div>
-</div>
+  
 
 <!-- The core Firebase JS SDK is always required and must be listed first -->
   <script src="https://www.gstatic.com/firebasejs/7.5.2/firebase-app.js"></script>

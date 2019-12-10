@@ -1,5 +1,17 @@
-* {
-  margin: 0;
+
+body {
+  background: linear-gradient(blueviolet,black);
+  color: white;
+}
+
+.navbar {
+  opacity: 0.3;
+  background-color: black;
+}
+
+#logOutButton {
+  background-color: black;
+  color: white;
 }
 
 .container-fluid {
@@ -7,7 +19,7 @@
 }
 
 .question {
-  background-color: blueviolet;
+  /* background-color: blueviolet; */
   color: white;
   height: 300px;
   width: 100%;
@@ -15,14 +27,14 @@
 
 #answers {
   padding: 10px;
-  height: 150px;
   width: 100%;
 }
 
 #answers button {
-  border-radius: 65%;
-  width: 150px;
-  height: 100px;
+  border-radius: 15%;
+  background-color: violet;
+  min-width: 100px;
+  min-height: 100px;
 }
 
 .wrong {
@@ -35,7 +47,15 @@
 
 #users {
   background-color: lightskyblue;
-  height: 200px;
-  width: 100%;
+  position: fixed;
+  min-height: 150px;
 }
 
+/* PHONES */
+@media (max-width: 576px) {
+  #answers button {
+    max-width: 100px;
+    max-height: 100px;
+    padding: 15px;
+  }
+}

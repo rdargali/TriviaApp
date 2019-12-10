@@ -18,8 +18,8 @@ function previewquiz(response) {
             // last question displayed...
             clearInterval(id);
             login.style.display = 'none';
-            landing.style.display = 'block';
-            play.style.display = 'none';
+            landing.style.display = 'block'; 
+            play.style.display = 'none';  
         }
         else {
             // show the next question
