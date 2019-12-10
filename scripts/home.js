@@ -29,7 +29,8 @@ async function getTrivia(url) {
     let rawResponse = await fetch(url)
     let response = await rawResponse.json()
     // Trivia JSON HERE!!!!
-    console.log(response)
+    //console.log(response)
+    previewquiz(response);
 }
 
 async function getCategories() {
