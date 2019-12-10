@@ -12,3 +12,9 @@ class Question {
         this.answers = [];
     }
 }
+
+class User {
+    constructor(uid) {
+        this.uid = uid;
+    }
+}

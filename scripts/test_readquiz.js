@@ -62,6 +62,7 @@ function func() {
 function previewquiz(response) {
     // DEO - added stuff here...
     let myquiz = readquiz('Trivia API','a user',response);
+    addQuiz(appUser.uid, myquiz);
     let qnum = 0;
     login.style.display = 'none';
     landing.style.display = 'none';

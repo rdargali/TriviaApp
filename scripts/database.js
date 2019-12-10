@@ -1,4 +1,5 @@
 // database functions go here
-function addQuiz() {
+function addQuiz(uid, quiz) {
     // add a quiz to the database
+    
 }
