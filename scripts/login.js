@@ -15,6 +15,7 @@ let logOutButton = document.getElementById("logOutButton");
 const login = document.getElementById("login");
 const landing = document.getElementById("landing");
 const play = document.getElementById("play");
+let appUser = {};
 
 //register button
 registerButton.addEventListener("click", () => {
@@ -70,14 +71,14 @@ firebase.auth().onAuthStateChanged(function(user) {
       // a user has signed in
       login.style.display = 'none';
       landing.style.display = 'block';
-      // console.log(user);
+      appUser = new User(user.uid);
       }
   else {
       // no user is signed in
       login.style.display = 'block';
       landing.style.display = 'none';
       play.style.display = 'none';
-      // console.log('no user')
+      appUser = {};
   }
 });
 
