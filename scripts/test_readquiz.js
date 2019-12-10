@@ -1,4 +1,4 @@
-quiz_json = `{
+/* quiz_json = `{
     "response_code": "0",
     "results": [
     {
@@ -56,3 +56,29 @@ function func() {
         //console.log(`displaying ${qnum}`)
     }
 }
+
+*/
+
+function previewquiz(response) {
+    // DEO - added stuff here...
+    let myquiz = readquiz('Trivia API','a user',response);
+    let qnum = 0;
+    login.style.display = 'none';
+    landing.style.display = 'none';
+    play.style.display = 'block';
+    displayQuestion(myquiz, qnum);
+    //console.log(`displaying ${qnum}`)
+    let id = setInterval(func, 3000);
+    function func() {
+        qnum += 1
+        if (qnum == myquiz.questions.length) {
+            clearInterval(id);
+        }
+        else {
+        displayQuestion(myquiz, qnum);
+        //console.log(`displaying ${qnum}`)
+        }
+    }
+}
+
+
