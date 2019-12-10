@@ -9,6 +9,13 @@ class Quiz {
 class Question {
     constructor(questionText) {
         this.text = questionText;
+        this.correctanswer = 0;
         this.answers = [];
+    }
+}
+
+class User {
+    constructor(uid) {
+        this.uid = uid;
     }
 }

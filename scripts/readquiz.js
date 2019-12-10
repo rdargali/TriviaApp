@@ -12,10 +12,11 @@ function readquiz(title, owner, quiz_obj) {
     for (let i=0; i<quiz_obj.results.length; i++) {
         let q = new Question();
         q.text = quiz_obj.results[i].question;
+        q.correctanswer = 0;
         q.answers.push(quiz_obj.results[i].correct_answer);
-        q.answers.push(quiz_obj.results[i].incorrect_answers[0]);
-        q.answers.push(quiz_obj.results[i].incorrect_answers[1]);
-        q.answers.push(quiz_obj.results[i].incorrect_answers[2]);
+        for (let j=0; j<quiz_obj.results[i].incorrect_answers.length; j++) {
+            q.answers.push(quiz_obj.results[i].incorrect_answers[j]);
+        }
         quiz.questions.push(q)
     }
 
