@@ -12,8 +12,9 @@
 <body>
   <div class="container-fluid">
     <div class="justify-content-center min-vw-100">
-      <nav class="navbar navbar-light bg-light">
+      <nav class="navbar navbar-light bg-primary">
         <span class="navbar-brand mb-0 h1">Trivia</span>
+          <button id="logOutButton">Log Out</button> 
       </nav>
 <!-- LOGIN /REGISTER SECTION -->
 <section id="loginRegister">
@@ -49,16 +50,11 @@
           <div class="col">
             <button id="logInButton">Log In</button>
           </div>
-        </div>
-      </form>
-    </div>
-    <!-- Move logout button to footer? -->
-    <div class="row-justify-content-center">
-      <button id="logOutButton">Log Out</button> 
-    </div>
+        </form>
+      </div>
   </section>
 <!-- LANDING PAGE/SHOW AFTER USER LOGS IN TO GENERATE QUIZ-->
-<section id="landing" style="display: none">
+<section id="home">
   <label># of Questions</label>
   <input id="numberOfQuestions" type="number" placeholder="Number of Questions" min="1" max="50" value="10">
   <select class="custom-select-mx-auto" id="categoryMenu">
@@ -126,7 +122,7 @@ https://firebase.google.com/docs/web/setup#available-libraries -->
       };
       // Initialize Firebase
       firebase.initializeApp(firebaseConfig);
-      </script>
+    </script>
     <script src="scripts/login.js"></script>
     <script src="scripts/home.js"></script>
     <script src="scripts/classes.js"></script>
