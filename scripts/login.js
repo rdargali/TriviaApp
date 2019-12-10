@@ -15,6 +15,7 @@ let logOutButton = document.getElementById("logOutButton");
 const login = document.getElementById("login");
 const landing = document.getElementById("landing");
 const play = document.getElementById("play");
+const banner = document.getElementById("banner");
 let appUser = {};
 
 //register button
@@ -71,7 +72,8 @@ firebase.auth().onAuthStateChanged(function(user) {
       // a user has signed in
       login.style.display = 'none';
       landing.style.display = 'block';
-      appUser = new User(user.uid);
+      appUser = new User(user.uid, user.email);
+      banner.innerHTML = `Trivia - logged in as ${user.email}`;
       firebase.database().ref('users/'+appUser.uid).on('value', (snapshot) => {updateUserQuizzes(snapshot)});
       }
   else {
@@ -79,6 +81,7 @@ firebase.auth().onAuthStateChanged(function(user) {
       login.style.display = 'block';
       landing.style.display = 'none';
       play.style.display = 'none';
+      banner.innerHTML = 'Trivia';
       appUser = {};
   }
 });
