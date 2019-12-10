@@ -11,53 +11,75 @@
 </head>
 <body>
   <div class="container-fluid">
-    <div class="row justify-content-center min-vw-100">
+    <div class="justify-content-center min-vw-100">
+      <nav class="navbar navbar-light bg-light">
+        <span class="navbar-brand mb-0 h1">Trivia</span>
+      </nav>
 <!-- LOGIN /REGISTER SECTION -->
-  <section id="login">
-    <input type="email" placeholder="Enter Email" id="registerEmailTextBox" />
-    <input
-    type="password"
-    placeholder="Enter Password"
-    id="registerPasswordTextBox"
-    />
-    <button id="registerButton">Register</button>
-    <br />
-    <input type="email" placeholder="Enter Email" id="logInEmailTextBox" />
-    <input
-    type="password"
-    placeholder="Enter Password"
-    id="logInPasswordTextBox"
-    />
-    <button id="logInButton">Log In</button>
-    <br />
-    <button id="">Log Out</button>
+<section id="loginRegister">
+  <div class="container py-5">
+    <div class="row">
+      <h2>Sign-up</h2>
+      <form>
+        <div class="col-md-10 mx-auto">
+        </div>
+        <div class="form-group col">
+          <input type="email" placeholder="Enter Email" id="registerEmailTextBox"/>
+        </div>
+        <div class="form-group col">
+          <input type="password" placeholder="Enter Password" id="registerPasswordTextBox"/>
+        </div>
+        <div class="col">
+          <button id="registerButton">Register</button>
+        </div>
+      </div>
+    </form>
+    <div class="container py-5">
+      <div class="row">
+        <h2>Login</h2>
+        <form>
+          <div class="col-md-10 mx-auto">
+          </div>
+          <div class="form-group col">  
+            <input type="email" placeholder="Enter Email" id="logInEmailTextBox"/>
+          </div>
+          <div class="form-group col">
+            <input type="password" placeholder="Enter Password" id="logInPasswordTextBox"/>
+          </div>
+          <div class="col">
+            <button id="logInButton">Log In</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!-- Move logout button to footer? -->
+    <div class="row-justify-content-center">
+      <button id="logOutButton">Log Out</button> 
+    </div>
   </section>
 <!-- LANDING PAGE/SHOW AFTER USER LOGS IN TO GENERATE QUIZ-->
-  <section id="landing" style="display: none">
-    <input id="numberOfQuestions" type="number" placeholder="Number of Questions" min="1" max="50" value="10">
-    <br>
-    <select id="categoryMenu">
-    </select>
-    <br>
-    <select id="difficulty">
-      <option value="">Any Difficulty</option>
-      <option value="easy">Easy</option>
-      <option value="medium">Medium</option>
-      <option value="hard">Hard</option>
-    </select>
-    <br>
-    <select id="questionType">
-      <option value="">Any Type</option>
-      <option value="multiple">Multiple Choice</option>
-      <option value="boolean">True / False</option>
-    </select>
-    <br>
-    <button id="getem">GO</button>
-  </section>
+<section id="landing" style="display: none">
+  <label># of Questions</label>
+  <input id="numberOfQuestions" type="number" placeholder="Number of Questions" min="1" max="50" value="10">
+  <select class="custom-select-mx-auto" id="categoryMenu">
+  </select>
+  <select class="custom-select-mx-auto" id="difficulty">
+    <option value="">Any Difficulty</option>
+    <option value="easy">Easy</option>
+    <option value="medium">Medium</option>
+    <option value="hard">Hard</option>
+  </select>
+  <select class="custom-select-mx-auto" id="questionType">
+    <option value="">Any Type</option>
+    <option value="multiple">Multiple Choice</option>
+    <option value="boolean">True / False</option>
+  </select>
+  <button id="getem">GO</button>
+</section>
 
 <!-- PLAY & DISPLAY GAME SECTION -->
 <section id="play" style="display: none">
-  <div class="question justify-content-center" id="main">
+  <div class="question row justify-content-center" id="main">
     <div class="row">
       <div class="col">
         <h4 class="text-right" id="questionnum">Question number</h4>
