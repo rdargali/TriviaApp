@@ -20,10 +20,13 @@ body {
 
 .container-fluid {
   min-height: 100vh;
+  padding: 0px;
+  color: white;
 }
 
 .question {
-  /* background-color: blueviolet; */
+  margin: 5px;
+  padding: 5px;
   color: white;
   height: 300px;
   width: 100%;
@@ -36,7 +39,7 @@ body {
 
 #answers button {
   border-radius: 15%;
-  background-color: violet;
+  background-color: blueviolet;
   min-width: 100px;
   min-height: 100px;
 }
@@ -49,17 +52,17 @@ body {
   background-color: lightgreen;
 }
 
-#users {
+/* #users {
   background-color: lightskyblue;
   position: fixed;
-  min-height: 150px;
-}
+  max-height: 150px;
+} */
 
 /* PHONES */
-@media (max-width: 576px) {
+/* @media (max-width: 576px) {
   #answers button {
     max-width: 100px;
     max-height: 100px;
     padding: 15px;
   }
-}
+} */
