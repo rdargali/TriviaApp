@@ -1,3 +1,15 @@
+let scoreboard = document.getElementById("scoreboard")
+
+function displayScores(scores) {
+    let scoreboardItems = []
+    scoreboardItems.push("<ul>")
+    for(let i = 0; i < scores.length; i ++) {
+        scoreboardItems.push(`<li>${scores[i].name} Score: ${scores[i].score}</li>`)
+    }
+    scoreboardItems.push("</ul>")
+    scoreboard.innerHTML = scoreboardItems.join(" ")
+}
+
 function getScores(pin) {
     let players = firebase.database().ref().child("games").child(pin).child("players")
     let scores = []
@@ -24,6 +36,6 @@ function getScores(pin) {
                 score: score
             })
         }
-        return scores
+        displayScores(scores)
     })
 }
