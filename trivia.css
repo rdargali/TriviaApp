@@ -5,6 +5,7 @@
 body {
   background: linear-gradient(blueviolet,black);
   color: white;
+  font-family: 'Roboto', sans-serif;
 }
 
 .navbar {
@@ -28,8 +29,8 @@ body {
   margin: 5px;
   padding: 5px;
   color: white;
-  height: 300px;
-  width: 100%;
+  min-height: 300px;
+  /* width: 95%; */
 }
 
 #answers {
@@ -37,7 +38,10 @@ body {
   width: 100%;
 }
 
-#answers button {
+#answers div button {
+  margin-bottom: 10px;
+  padding: 2px;
+  color: white;
   border-radius: 15%;
   background-color: blueviolet;
   min-width: 100px;
@@ -45,11 +49,11 @@ body {
 }
 
 .wrong {
-  background-color: violet;
+  background-color: red;
 }
 
 .right {
-  background-color: lightgreen;
+  background-color: green;
 }
 
 /* #users {

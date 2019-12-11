@@ -29,7 +29,7 @@ function start(response, mode) {
     firebase.database().ref('games/'+pin).child('players').on('child_added', (snapshot) => {updateUserList(snapshot)});
     setTimeout(()=>{qLoop(pin, myquiz)},30000)
     
-    let countdown = 30;
+    let countdown = 30; 
     let id = setInterval(cdown, 1000);
     function cdown() {
         questionnum.innerHTML = countdown;
