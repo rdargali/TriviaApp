@@ -1,17 +1,26 @@
-function start(response) {
+function start(response, mode) {
+    // response is quiz data from the trivia API
+    // mode is a character indicating play mode:
+    // 'M' = multiplayer
+    // 'S' = single (leader) player
+    // 'B' = multiplayer + admin is playing
+
     // this bit needs to move into user's list handler section
     let myquiz = readquiz('Trivia API',appUser.email,response);
     addQuiz(appUser.uid, myquiz);
 
     // display pin and allow users to join the game
-    // TODO - create random PIN and check DB here...
-    let pin = '12345';
-    console.log(`Pin: ${pin}`)
+    // TODO - make sure this pin hasn't been used here...
+    let pin = '';
+    for (let i=0; i < 7; i++) {
+        pin = `${pin}${getRandomInt().toString()}`;
+    }
 
     login.style.display = 'none';
     landing.style.display = 'none';
     play.style.display = 'block';
 
+    // TODO tell players where to go to join the game
     questionnum.innerHTML = '---';
     question.innerHTML = `Waiting for players to join with game id ${pin}`;
     answers.style.display = 'none';
@@ -38,7 +47,6 @@ function qLoop(pin, myquiz) {
    let qindex = 0;
    displayQuestion(myquiz, qindex);
    answers.style.display = 'flex';
-   //firebase.database().ref('games/'+pin).child('question').set({text: `Qindex: ${qindex}`, qindex: qindex});
    firebase.database().ref('games/'+pin).child('question').set({text: myquiz.questions[qindex].text, qindex: qindex});
    let id = setInterval(func, 10000);
    function func() {
@@ -47,7 +55,6 @@ function qLoop(pin, myquiz) {
             // last question displayed...
             clearInterval(id);
             firebase.database().ref('games/'+pin).child('question').set({text: 'GAME_OVER', qindex: -1});
-            firebase.database().ref('games/'+pin).child('question').set({text: myquiz.questions[qindex].text, qindex: qindex});
             login.style.display = 'none';
             landing.style.display = 'block';
             play.style.display = 'none';
@@ -55,7 +62,6 @@ function qLoop(pin, myquiz) {
         else {
             // show the next question
             displayQuestion(myquiz, qindex);
-            //firebase.database().ref('games/'+pin).child('question').set({text: `Qindex: ${qindex}`, qindex: qindex});
             firebase.database().ref('games/'+pin).child('question').set({text: myquiz.questions[qindex].text, qindex: qindex});
         }
     }
@@ -63,4 +69,8 @@ function qLoop(pin, myquiz) {
 
 function updateUserList(snapshot) {
     users.innerHTML = `${users.innerHTML}<div>${snapshot.val().name}</div>`;
+}
+function getRandomInt() {
+    // get a random integer 0 - 9
+    return Math.floor(Math.random() * 10)
 }
