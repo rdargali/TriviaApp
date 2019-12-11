@@ -11,45 +11,45 @@
 </head>
 <body>
   <div class="container-fluid">
-    <div class="justify-content-center min-vw-100">
-      <nav class="navbar navbar-light bg-primary">
-        <span class="navbar-brand mb-0 h1" id="banner">Trivia</span>
-          <button id="logOutButton">Log Out</button> 
-        </nav>
-        <!-- LOGIN /REGISTER SECTION -->
-        <section id="login">
-          <div class="container py-5">
-            <div class="row">
-              <h2>Sign-up</h2>
-              <div class="col-md-10 mx-auto">
-              </div>
-              <div class="form-group col">
-                <input type="email" placeholder="Enter Email" id="registerEmailTextBox"/>
-              </div>
-              <div class="form-group col">
-                <input type="password" placeholder="Enter Password" id="registerPasswordTextBox"/>
-              </div>
-              <div class="col">
-                <button id="registerButton">Register</button>
-              </div>
-            </div>
-            <div class="container py-5">
-              <div class="row">
-                <h2>Login</h2>
-                <div class="col-md-10 mx-auto">
-                </div>
-                <div class="form-group col">  
-                  <input type="email" placeholder="Enter Email" id="logInEmailTextBox"/>
-                </div>
-                <div class="form-group col">
-                  <input type="password" placeholder="Enter Password" id="logInPasswordTextBox"/>
-                </div>
-                <div class="col">
-                  <button id="logInButton">Log In</button>
-                </div>
-              </div>
-            </section>
-            <!-- LANDING PAGE/SHOW AFTER USER LOGS IN TO GENERATE QUIZ-->
+    <nav class="navbar navbar-light">
+      <span class="navbar-brand mb-0 h1 text-white" id="banner">Trivia</span>
+        <button id="logOutButton">Log Out</button> 
+      </nav>
+    <div class="justify-content-center">
+<!-- LOGIN /REGISTER SECTION -->
+<section id="login">
+  <div class="container py-5">
+    <div class="row">
+      <h2>Sign-up</h2>
+        <div class="col-md-10 mx-auto">
+        </div>
+        <div class="form-group col">
+          <input type="email" placeholder="Enter Email" id="registerEmailTextBox"/>
+        </div>
+        <div class="form-group col">
+          <input type="password" placeholder="Enter Password" id="registerPasswordTextBox"/>
+        </div>
+        <div class="col">
+          <button id="registerButton">Register</button>
+        </div>
+      </div>
+    <div class="container py-5">
+      <div class="row">
+        <h2>Login</h2>
+          <div class="col-md-10 mx-auto">
+          </div>
+          <div class="form-group col">  
+            <input type="email" placeholder="Enter Email" id="logInEmailTextBox"/>
+          </div>
+          <div class="form-group col">
+            <input type="password" placeholder="Enter Password" id="logInPasswordTextBox"/>
+          </div>
+          <div class="col">
+            <button id="logInButton">Log In</button>
+          </div>
+      </div>
+  </section>
+<!-- LANDING PAGE/SHOW AFTER USER LOGS IN TO GENERATE QUIZ-->
             <section id="landing" class="container-fluid">
               <div class="row">
                 <div class="col-lg-4" id="landingLeft">
@@ -84,32 +84,33 @@
 
 <!-- PLAY & DISPLAY GAME SECTION -->
 <section id="play">
-  <div class="question row justify-content-center" id="main">
-    <div class="row">
-      <div class="col">
-        <h4 class="text-right" id="questionnum">Question number</h4>
+    <div class="container-fluid question">
+      <div>
+        <div class="row justify-content-center">
+          <h5 id="questionnum">Question number</h5>
+        </div>
+        <div class="row justify-content-center">
+          <div>        
+            <h3 class="display-6 text-center text-wrap" id="question">Question Area</h3>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-center" id="answers">
+        <!-- 1 - 4 elements of form: <div class="col">Answer 1</div> --> 
+        <div class="col">Answer 1</div>
+        <div class="col">Answer 2</div>
+        <div class="col">Answer 3</div>
+        <div class="col">Answer 4</div>
+      </div>
+      <div class="row justify-content-center" id="users">
+        <div class="col">Users
+        </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col">
-        <h1 class="display-4" id="question">Question Area</h1>
-      </div>
-    </div>
+  </section>
   </div>
-  <div class="row justify-content-center" id="answers">
-    <!-- 1 - 4 elements of form: <div class="col">Answer 1</div> --> 
-    <div class="col">Answer 1</div>
-    <div class="col">Answer 2</div>
-    <div class="col">Answer 3</div>
-    <div class="col">Answer 4</div>
   </div>
-  <div class="row justify-content-center" id="users">
-    <div class="col">Users
-    </div>
-  </div>
-</section>
-</div>
-</div>
+  
 
 <!-- The core Firebase JS SDK is always required and must be listed first -->
   <script src="https://www.gstatic.com/firebasejs/7.5.2/firebase-app.js"></script>
