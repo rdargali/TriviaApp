@@ -1,12 +1,12 @@
 function displayQuestion(quiz,n) {
     // function to display the nth question from a quiz
 
-    //a Quiz is an object with:
-    //name(string)
-    //owner(string)
-    //quizQuestions[] (Question)
+    // a Quiz is an object with:
+    // name(string)
+    // owner(string)
+    // quizQuestions[] (Question)
 
-    //a Question is an object with
+    // a Question is an object with
     // text(string)
     // answers[] (string)
 
