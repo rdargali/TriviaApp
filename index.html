@@ -14,8 +14,6 @@
     <div class="justify-content-center min-vw-100">
       <nav class="navbar navbar-light bg-primary">
         <span class="navbar-brand mb-0 h1" id="banner">Trivia</span>
-        <!-- welcome user
-          home link -->
           <button id="logOutButton">Log Out</button> 
         </nav>
         <!-- LOGIN /REGISTER SECTION -->
@@ -83,63 +81,64 @@
               <br><br><br>
               <button id="getem">Generate Quiz!</button>
             </section>
-            
-            <!-- PLAY & DISPLAY GAME SECTION -->
-            <section id="play">
-              <div class="question row justify-content-center" id="main">
-                <div class="row">
-                  <div class="col">
-                    <h4 class="text-right" id="questionnum">Question number</h4>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col">
-                    <h1 class="display-4" id="question">Question Area</h1>
-                  </div>
-                </div>
-              </div>
-              <div class="row justify-content-center" id="answers">
-                <!-- 1 - 4 elements of form: <div class="col">Answer 1</div> --> 
-                <div class="col">Answer 1</div>
-                <div class="col">Answer 2</div>
-                <div class="col">Answer 3</div>
-                <div class="col">Answer 4</div>
-              </div>
-              <div class="row justify-content-center" id="users">
-                <div class="col">Users
-                </div>
-              </div>
-            </section>
-          </div>
-        </div>
-        
-        <!-- The core Firebase JS SDK is always required and must be listed first -->
-        <script src="https://www.gstatic.com/firebasejs/7.5.2/firebase-app.js"></script>
-        <!-- Authentication Library for Firebase -->
-        <script src="https://www.gstatic.com/firebasejs/7.5.2/firebase-auth.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/7.5.2/firebase-database.js"></script>
-        <!-- TODO: Add SDKs for Firebase products that you want to use
-          https://firebase.google.com/docs/web/setup#available-libraries -->
-          <script>
-            // Your web app's Firebase configuration
-            var firebaseConfig = {
-              apiKey: "AIzaSyCYVrGcmSuM1DpVfpF32eLCj9FYCTk8RC8",
-              authDomain: "triviaapp-8d3b9.firebaseapp.com",
-              databaseURL: "https://triviaapp-8d3b9.firebaseio.com",
-              projectId: "triviaapp-8d3b9",
-              storageBucket: "triviaapp-8d3b9.appspot.com",
-              messagingSenderId: "823199186177",
-              appId: "1:823199186177:web:de0851257e611d07a8ef00"
-            };
-            // Initialize Firebase
-            firebase.initializeApp(firebaseConfig);
-          </script>
-          <script src="scripts/classes.js"></script>
-          <script src="scripts/login.js"></script>
-          <script src="scripts/home.js"></script>
-          <script src="scripts/displayquestion.js"></script>
-          <script src="scripts/readquiz.js"></script>
-          <script src="scripts/database.js"></script>
-          <script src="scripts/test_readquiz.js"></script>
-        </body>
-        </html>
+
+<!-- PLAY & DISPLAY GAME SECTION -->
+<section id="play">
+  <div class="question row justify-content-center" id="main">
+    <div class="row">
+      <div class="col">
+        <h4 class="text-right" id="questionnum">Question number</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h1 class="display-4" id="question">Question Area</h1>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center" id="answers">
+    <!-- 1 - 4 elements of form: <div class="col">Answer 1</div> --> 
+    <div class="col">Answer 1</div>
+    <div class="col">Answer 2</div>
+    <div class="col">Answer 3</div>
+    <div class="col">Answer 4</div>
+  </div>
+  <div class="row justify-content-center" id="users">
+    <div class="col">Users
+    </div>
+  </div>
+</section>
+</div>
+</div>
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.5.2/firebase-app.js"></script>
+<!-- Authentication Library for Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/7.5.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.5.2/firebase-database.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use
+https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyCYVrGcmSuM1DpVfpF32eLCj9FYCTk8RC8",
+        authDomain: "triviaapp-8d3b9.firebaseapp.com",
+        databaseURL: "https://triviaapp-8d3b9.firebaseio.com",
+        projectId: "triviaapp-8d3b9",
+        storageBucket: "triviaapp-8d3b9.appspot.com",
+        messagingSenderId: "823199186177",
+        appId: "1:823199186177:web:de0851257e611d07a8ef00"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+  </script>
+    <script src="scripts/classes.js"></script>
+    <script src="scripts/login.js"></script>
+    <script src="scripts/home.js"></script>
+    <script src="scripts/displayquestion.js"></script>
+    <script src="scripts/readquiz.js"></script>
+    <script src="scripts/database.js"></script>
+    <script src="scripts/start_game.js"></script>
+    <script src="scripts/test_readquiz.js"></script>
+  </body>
+</html>

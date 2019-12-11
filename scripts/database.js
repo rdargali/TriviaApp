@@ -12,6 +12,6 @@ function deleteQuiz(uid, quizId) {
 }
 
 function updateUserQuizzes(snapshot) {
-    // update the user's quiz list
-    console.log(snapshot.val());
+    // TODO update the user's quiz list
+    //console.log(snapshot.val());
 }
