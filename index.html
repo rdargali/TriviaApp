@@ -14,44 +14,46 @@
   <div class="container-fluid">
     <nav class="navbar navbar-light">
       <span class="navbar-brand mb-0 h1 text-white" id="banner">Trivia</span>
-        <button id="logOutButton">Log Out</button> 
-      </nav>
+      <button class="text-white">Register</button> 
+      <button class="text-white" id="logOutButton" style="display:none">Log Out</button> 
+    </nav>
     <div class="justify-content-center">
 <!-- LOGIN /REGISTER SECTION -->
 <section id="login">
-  <div class="container py-5">
-    <div class="row">
-      <h2>Sign-up</h2>
-        <div class="col-md-10 mx-auto">
-        </div>
-        <div class="form-group col">
-          <input type="email" placeholder="Enter Email" id="registerEmailTextBox"/>
-        </div>
-        <div class="form-group col">
-          <input type="password" placeholder="Enter Password" id="registerPasswordTextBox"/>
-        </div>
-        <div class="col">
-          <button id="registerButton">Register</button>
-        </div>
+  <div class="container">
+    <div class="row" id="registerDiv">
+      <h2>Register</h2>
+      <div class="col-md-10 mx-auto">
       </div>
-    <div class="container py-5">
-      <div class="row">
-        <h2>Login</h2>
-          <div class="col-md-10 mx-auto">
-          </div>
-          <div class="form-group col">  
-            <input type="email" placeholder="Enter Email" id="logInEmailTextBox"/>
-          </div>
-          <div class="form-group col">
-            <input type="password" placeholder="Enter Password" id="logInPasswordTextBox"/>
-          </div>
-          <div class="col">
-            <button id="logInButton">Log In</button>
-          </div>
+      <div class="form-group col">
+        <input type="email" placeholder="Enter Email" id="registerEmailTextBox"/>
       </div>
+      <div class="form-group col">
+        <input type="password" placeholder="Enter Password" id="registerPasswordTextBox"/>
+      </div>
+      <div class="col">
+        <button class="btn btn-dark" id="registerButton">Register</button>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row" id="loginDiv">
+      <h2>Login</h2>
+      <div class="col-md-10 mx-auto">
+      </div>
+      <div class="form-group col">  
+        <input type="email" placeholder="Enter Email" id="logInEmailTextBox"/>
+      </div>
+      <div class="form-group col">
+        <input type="password" placeholder="Enter Password" id="logInPasswordTextBox"/>
+      </div>
+      <div class="col">
+        <button class="btn btn-dark" id="logInButton">Log In</button>
+      </div>
+    </div>
   </section>
 <!-- LANDING PAGE/SHOW AFTER USER LOGS IN TO GENERATE QUIZ-->
-<section id="landing" style="display: none" class="container-fluid">
+<section id="landing" style="display:none" class="container-fluid">
   <div class="row">
     <div class="col-lg-4" id="landingLeft">
       <label># of Questions</label>
@@ -70,52 +72,46 @@
         <option value="multiple">Multiple Choice</option>
         <option value="boolean">True / False</option>
       </select><br>
+      <button class="btn btn-dark" id="getem">Generate Quiz!</button>
       <div id="scoreboard">Scoreboard goes here</div>
-        
     </div>
     <div class="col-lg-8" id="landingRight">
-      <br>
       <!-- <img src="https://www.pngkey.com/png/full/81-815035_1a890a81-trivia-night-grpahic-transparent-trivia.png" /> -->
     </div>
   </div>
-  <br><br><br>
-  <button id="getem">Generate Quiz!</button>
 </section>
 
 <!-- PLAY & DISPLAY GAME SECTION -->
-<section id="play" style="display: none">
-    <div class="container-fluid question">
-      <div>
-        <div class="row justify-content-center">
-          <div class="col">
-            <h5 id="questionnum">Question number</h5>
-          </div>
-          <div class="col mr-3 d-flex justify-content-end">
-            <h5 id="countdown">00</h5>
-          </div>
-        </div>
-        <div class="row justify-content-center text-wrap">
-          <div>        
-            <h2 class="p-3 text-center" id="question">Question Area</h2>
-          </div>
-        </div>
+<section id="play" style="display:none">
+  <div class="container-fluid question">
+    <div class="row justify-content-center">
+      <div class="col">
+        <h5 id="questionnum">Question number</h5>
       </div>
-      <div class="row justify-content-center" id="answers">
-        <!-- 1 - 4 elements of form: <div class="col">Answer 1</div> --> 
-        <div class="col">Answer 1</div>
-        <div class="col">Answer 2</div>
-        <div class="col">Answer 3</div>
-        <div class="col">Answer 4</div>
-      </div>
-      <div class="row justify-content-center" id="users">
-        <div class="col">Users
-        </div>
+      <div class="col mr-3 d-flex justify-content-end">
+        <h5 id="countdown">00</h5>
       </div>
     </div>
-  </section>
+    <div class="row justify-content-center text-wrap">
+      <div>        
+        <h2 class="p-3 text-center" id="question">Question Area</h2>
+      </div>
+    </div>
+    <div class="row ml-0 justify-content-around" id="answers">
+      <div class="col">Answer 1</div>
+      <div class="col">Answer 2</div>
+      <div class="col">Answer 3</div>
+      <div class="col">Answer 4</div>
+    </div>
+    <div class="row bg-dark" id="users">
+      <div class="col justify-content-center">Users
+      </div>
+    </div>
   </div>
-  </div>
-  
+</section>
+</div>
+</div>
+
 
 <!-- The core Firebase JS SDK is always required and must be listed first -->
   <script src="https://www.gstatic.com/firebasejs/7.5.2/firebase-app.js"></script>
