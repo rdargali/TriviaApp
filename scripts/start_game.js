@@ -75,9 +75,13 @@ function qLoop(pin, myquiz, playerObj) {
             // last question displayed...
             clearInterval(id);
             firebase.database().ref('games/'+pin).child('question').set({text: 'GAME_OVER', qindex: -1});
-            login.style.display = 'none';
-            landing.style.display = 'block';
-            play.style.display = 'none';
+            questionnum.innerHTML = '---';
+            question.innerHTML = `GAME_OVER`;
+            answers.style.display = 'none';
+            setTimeout(() => { login.style.display = 'none';
+                               landing.style.display = 'block';
+                               play.style.display = 'none';
+                               },5000);
         }
         else {
             // show the next question
