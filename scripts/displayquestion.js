@@ -15,6 +15,11 @@ function displayQuestion(quiz,n) {
     const answers = document.getElementById('answers');
     const users = document.getElementById('users');
 
+    qindex = n;
+    if (playerObj != null) {
+        leaderPlayerObj = playerObj;
+    }
+
     // add header info
     headerHTML = `<div class="col">Quiz title: ${quiz.name}</div>
                 <div class="col">Quiz owner: ${quiz.owner}</div>`;
@@ -26,10 +31,10 @@ function displayQuestion(quiz,n) {
     question.innerHTML = q.text;
 
     answersHTML = [];
-    answersHTML.push(`<div class="col"><button class="right">${q.answers[q.correctanswer]}</button></div>`);
+    answersHTML.push(`<div class="col"><button onclick="rightAnswerButton();">${q.answers[q.correctanswer]}</button></div>`);
     for (let j = 0; j < q.answers.length; j++) {
         if (j != q.correctanswer) {
-            answersHTML.push(`<div class="col"><button class="wrong">${q.answers[j]}</button></div>`);
+            answersHTML.push(`<div class="col"><button onclick="wrongAnswerButton();">${q.answers[j]}</button></div>`);
         }
     }
     shuffle(answersHTML);
