@@ -9,6 +9,10 @@ function start(response, mode = 'S') {
     // 'S' = single (leader) player
     // 'B' = multiplayer + admin is playing
 
+    qindex = 0;
+    playerObj = null;
+    playerRef = null;
+
     // this bit needs to move into user's list handler section
     let myquiz = readquiz('Trivia API',appUser.email,response);
     addQuiz(appUser.uid, myquiz);
@@ -40,12 +44,12 @@ function start(response, mode = 'S') {
             playerRef = gameRef.child('players').push(playerObj);
         }
         setTimeout(()=>{qLoop(pin, myquiz, playerObj)},30000)
-        let countdown = 30;
+        let countdownTimeDisp = 30;
         let id = setInterval(cdown, 1000);
         function cdown() {
-            questionnum.innerHTML = countdown;
-            countdown -= 1;
-            if (countdown == 0) {
+            questionnum.innerHTML = countdownTimeDisp;
+            countdownTimeDisp -= 1;
+            if (countdownTimeDisp == 0) {
                 clearInterval(id);
             }
         }
@@ -53,6 +57,7 @@ function start(response, mode = 'S') {
     else {
         // single - player mode
         // TODO: playerObj needs dynamic initialization based on number of questions
+        console.log(pin);
         playerObj = {'name': appUser.email, '0': 0, '1': 0, '2': 0, '3': 0, '4': 0, '5': 0, '6': 0, '7': 0, '8': 0, '9': 0};
         gameRef = firebase.database().ref('games/'+pin);
         playerRef = gameRef.child('players').push(playerObj);
@@ -63,13 +68,23 @@ function start(response, mode = 'S') {
 
 function qLoop(pin, myquiz, playerObj) {
     // questions loop
-   // show question, record responses, if no response deem wrong - show # playing & # responded
-   // if all responded move on before timeout
-   displayQuestion(myquiz, qindex);
-   answers.style.display = 'flex';
-   firebase.database().ref('games/'+pin).child('question').set({text: myquiz.questions[qindex].text, qindex: qindex});
-   let id = setInterval(func, 10000);
-   function func() {
+    // show question, record responses, if no response deem wrong - show # playing & # responded
+    // if all responded move on before timeout
+    countdownTimeDisp = 15;
+    displayQuestion(myquiz, qindex);
+    answers.style.display = 'flex';
+    firebase.database().ref('games/'+pin).child('question').set({text: myquiz.questions[qindex].text, qindex: qindex});
+    cid = setInterval(cdown1, 1000);
+    function cdown1() {
+        countdown.innerHTML = countdownTimeDisp;
+        countdownTimeDisp -= 1;
+            if (countdownTimeDisp == 0) {
+                clearInterval(cid);
+            }
+        }
+   let id = setInterval(func, 19000);    // set for ~15 second delay; adjust countdowns above and in func() if needed!
+   async function func() {
+       await flashcorrect();   // flashing correct answer eats 3000 ms
        qindex += 1;
        if (qindex == myquiz.questions.length) {
             // last question displayed...
@@ -89,6 +104,15 @@ function qLoop(pin, myquiz, playerObj) {
             // show the next question
             displayQuestion(myquiz, qindex);
             firebase.database().ref('games/'+pin).child('question').set({text: myquiz.questions[qindex].text, qindex: qindex});
+            countdownTimeDisp = 15;
+            cid = setInterval(cdown2, 1000);
+            function cdown2() {
+                countdown.innerHTML = countdownTimeDisp;
+                countdownTimeDisp -= 1;
+                if (countdownTimeDisp == 0) {
+                    clearInterval(cid);
+                }
+            }
         }
     }
 }
@@ -112,4 +136,28 @@ function rightAnswerButton() {
 function wrongAnswerButton() {
     // leader clicked the wrong answer
     // do nothing...
+}
+
+async function flashcorrect() {
+    // get a handle to the correct answer button
+    let correctAnswerButton = -1;
+    let buttons = answers.children;
+    for (let i=0; i<buttons.length; i++) {
+        //console.log(buttons[i]);
+        if (buttons[i].firstChild.className == "right") {
+            // this is the one we want
+            correctAnswerButton = i;
+        }
+    }
+    // flash it green 3x
+    for (let i=0; i<3; i++) {
+        buttons[correctAnswerButton].firstChild.style.backgroundColor= 'lightgreen';
+        await sleep(500);
+        buttons[correctAnswerButton].firstChild.style.backgroundColor= 'blueviolet';
+        await sleep(500);
+    }
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
