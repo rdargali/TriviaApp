@@ -47,7 +47,6 @@ function qLoop(pin, myquiz) {
             // last question displayed...
             clearInterval(id);
             firebase.database().ref('games/'+pin).child('question').set({text: 'GAME_OVER', qindex: -1});
-            firebase.database().ref('games/'+pin).child('question').set({text: myquiz.questions[qindex].text, qindex: qindex});
             login.style.display = 'none';
             landing.style.display = 'block';
             play.style.display = 'none';
