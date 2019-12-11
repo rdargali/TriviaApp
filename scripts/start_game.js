@@ -75,6 +75,7 @@ function qLoop(pin, myquiz, playerObj) {
             // last question displayed...
             clearInterval(id);
             firebase.database().ref('games/'+pin).child('question').set({text: 'GAME_OVER', qindex: -1});
+            getScores(pin)
             login.style.display = 'none';
             landing.style.display = 'block';
             play.style.display = 'none';
