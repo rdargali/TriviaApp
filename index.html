@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Trivia</title>
-<!-- STYLE SHEETS -->
+  <!-- STYLE SHEETS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="trivia.css">
 </head>
@@ -13,8 +13,6 @@
   <div class="container-fluid">
     <nav class="navbar navbar-light">
       <span class="navbar-brand mb-0 h1 text-white" id="banner">Trivia</span>
-      <!-- welcome user
-        home link -->
         <button id="logOutButton">Log Out</button> 
       </nav>
     <div class="justify-content-center">
@@ -52,24 +50,37 @@
       </div>
   </section>
 <!-- LANDING PAGE/SHOW AFTER USER LOGS IN TO GENERATE QUIZ-->
-<section id="landing">
-  <label># of Questions</label>
-  <input id="numberOfQuestions" type="number" placeholder="Number of Questions" min="1" max="50" value="10">
-  <select class="custom-select-mx-auto" id="categoryMenu">
-  </select>
-  <select class="custom-select-mx-auto" id="difficulty">
-    <option value="">Any Difficulty</option>
-    <option value="easy">Easy</option>
-    <option value="medium">Medium</option>
-    <option value="hard">Hard</option>
-  </select>
-  <select class="custom-select-mx-auto" id="questionType">
-    <option value="">Any Type</option>
-    <option value="multiple">Multiple Choice</option>
-    <option value="boolean">True / False</option>
-  </select>
-  <button id="getem">GO</button>
-</section>
+            <section id="landing" class="container-fluid">
+              <div class="row">
+                <div class="col-lg-4" id="landingLeft">
+                  <label># of Questions</label>
+                  <input id="numberOfQuestions" type="number" placeholder="Number of Questions" min="1" max="50" value="10">
+                  <br>
+                  <select class="custom-select-mx-auto" id="categoryMenu">
+                  </select><br>
+                  <select class="custom-select-mx-auto" id="difficulty">
+                    <option value="">Any Difficulty</option>
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
+                  </select><br>
+                  <select class="custom-select-mx-auto" id="questionType">
+                    <option value="">Any Type</option>
+                    <option value="multiple">Multiple Choice</option>
+                    <option value="boolean">True / False</option>
+                  </select><br>
+                  <div id="scoreboard">Scoreboard goes here</div>
+                  
+                  
+                </div>
+                <div class="col-lg-8" id="landingRight">
+                  <br>
+                  <img src="https://www.pngkey.com/png/full/81-815035_1a890a81-trivia-night-grpahic-transparent-trivia.png" />
+                </div>
+              </div>
+              <br><br><br>
+              <button id="getem">Generate Quiz!</button>
+            </section>
 
 <!-- PLAY & DISPLAY GAME SECTION -->
 <section id="play">
@@ -128,6 +139,7 @@ https://firebase.google.com/docs/web/setup#available-libraries -->
     <script src="scripts/displayquestion.js"></script>
     <script src="scripts/readquiz.js"></script>
     <script src="scripts/database.js"></script>
+    <script src="scripts/start_game.js"></script>
     <script src="scripts/test_readquiz.js"></script>
   </body>
 </html>

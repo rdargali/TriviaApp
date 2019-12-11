@@ -66,3 +66,33 @@ body {
     padding: 15px;
   }
 } */
+
+#landing select,
+#getem {
+  width: 100%;
+}
+
+#numberOfQuestions {
+  width: 200px;
+}
+
+#landing select,
+#getem,
+#numberOfQuestions {
+  height: 30px;
+}
+
+#getem {
+  height: 20%;
+}
+
+#scoreboard {
+  border: 2px solid lightgrey;
+  height: 85%;
+  border-radius: 5px;
+}
+
+#landingRight,
+#landingLeft {
+  text-align: center;
+}
