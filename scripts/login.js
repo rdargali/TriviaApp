@@ -71,14 +71,16 @@ firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
       // a user has signed in
       login.style.display = 'none';
+      logOutButton.style.display = 'block';
       landing.style.display = 'block';
       appUser = new User(user.uid, user.email);
-      banner.innerHTML = `Trivia - logged in as ${user.email}`;
+      banner.innerHTML = `Welcome ${user.email}`;
       firebase.database().ref('users/'+appUser.uid).on('value', (snapshot) => {updateUserQuizzes(snapshot)});
       }
   else {
       // no user is signed in
       login.style.display = 'block';
+      logOutButton.style.display = 'none';
       landing.style.display = 'none';
       play.style.display = 'none';
       banner.innerHTML = 'Trivia';
