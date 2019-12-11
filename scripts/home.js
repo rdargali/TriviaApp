@@ -30,7 +30,10 @@ async function getTrivia(url) {
     let response = await rawResponse.json()
     // Trivia JSON HERE!!!!
     //console.log(response)
-    previewquiz(response);
+
+    //use previewquiz(response) to launch previewer here or start(response) to launch a game here...
+    //previewquiz(response);
+    start(response);
 }
 
 async function getCategories() {
