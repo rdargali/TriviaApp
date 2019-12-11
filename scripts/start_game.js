@@ -1,4 +1,8 @@
-function start(response, mode) {
+let qindex = 0;
+let playerObj = null;
+let playerRef = null;
+
+function start(response, mode = 'S') {
     // response is quiz data from the trivia API
     // mode is a character indicating play mode:
     // 'M' = multiplayer
@@ -9,42 +13,58 @@ function start(response, mode) {
     let myquiz = readquiz('Trivia API',appUser.email,response);
     addQuiz(appUser.uid, myquiz);
 
-    // display pin and allow users to join the game
+    // create pin for this game instance
     // TODO - make sure this pin hasn't been used here...
     let pin = '';
     for (let i=0; i < 7; i++) {
         pin = `${pin}${getRandomInt().toString()}`;
     }
 
+    // show the play section
     login.style.display = 'none';
     landing.style.display = 'none';
     play.style.display = 'block';
 
-    // TODO tell players where to go to join the game
-    questionnum.innerHTML = '---';
-    question.innerHTML = `Waiting for players to join with game id ${pin}`;
-    answers.style.display = 'none';
-
     firebase.database().ref('games/'+pin).child('question').set({text: 'JOINING', num: -1});
-    firebase.database().ref('games/'+pin).child('players').on('child_added', (snapshot) => {updateUserList(snapshot)});
-    setTimeout(()=>{qLoop(pin, myquiz)},30000)
-    
-    let countdown = 30;
-    let id = setInterval(cdown, 1000);
-    function cdown() {
-        questionnum.innerHTML = countdown;
-        countdown -= 1;
-        if (countdown == 0) {
-            clearInterval(id);
+
+    // TODO tell players where to go to join the game
+    if (mode != 'S') {
+        questionnum.innerHTML = '---';
+        question.innerHTML = `Waiting for players to join with game id ${pin}`;
+        answers.style.display = 'none';
+        firebase.database().ref('games/'+pin).child('players').on('child_added', (snapshot) => {updateUserList(snapshot)});
+        if (mode == 'B') {
+            // TODO: playerObj needs dynamic initialization based on number of questions
+            playerObj = {'name': appUser.email, '0': 0, '1': 0, '2': 0, '3': 0, '4': 0, '5': 0, '6': 0, '7': 0, '8': 0, '9': 0};
+            gameRef = firebase.database().ref('games/'+pin);
+            playerRef = gameRef.child('players').push(playerObj);
         }
+        setTimeout(()=>{qLoop(pin, myquiz, playerObj)},30000)
+        let countdown = 30;
+        let id = setInterval(cdown, 1000);
+        function cdown() {
+            questionnum.innerHTML = countdown;
+            countdown -= 1;
+            if (countdown == 0) {
+                clearInterval(id);
+            }
+        }
+    }
+    else {
+        // single - player mode
+        // TODO: playerObj needs dynamic initialization based on number of questions
+        playerObj = {'name': appUser.email, '0': 0, '1': 0, '2': 0, '3': 0, '4': 0, '5': 0, '6': 0, '7': 0, '8': 0, '9': 0};
+        gameRef = firebase.database().ref('games/'+pin);
+        playerRef = gameRef.child('players').push(playerObj);
+        users.innerHTML = `${users.innerHTML}<div>${appUser.email}</div>`;
+        qLoop(pin, myquiz, playerObj);
     }
 }
 
-function qLoop(pin, myquiz) {
+function qLoop(pin, myquiz, playerObj) {
     // questions loop
    // show question, record responses, if no response deem wrong - show # playing & # responded
    // if all responded move on before timeout
-   let qindex = 0;
    displayQuestion(myquiz, qindex);
    answers.style.display = 'flex';
    firebase.database().ref('games/'+pin).child('question').set({text: myquiz.questions[qindex].text, qindex: qindex});
@@ -73,4 +93,17 @@ function updateUserList(snapshot) {
 function getRandomInt() {
     // get a random integer 0 - 9
     return Math.floor(Math.random() * 10)
+}
+
+function rightAnswerButton() {
+    // leader clicked the right answer
+    if (playerObj != null) {
+        playerObj[qindex] = 1;
+        playerRef.set(playerObj);
+    }
+}
+
+function wrongAnswerButton() {
+    // leader clicked the wrong answer
+    // do nothing...
 }
