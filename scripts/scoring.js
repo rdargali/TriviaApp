@@ -1,6 +1,5 @@
 function getScores(pin) {
-    let testPIN = "9718670"
-    let players = firebase.database().ref().child("games").child(testPIN).child("players")
+    let players = firebase.database().ref().child("games").child(pin).child("players")
     let scores = []
 
     players.on("value",(snapshot) => {
@@ -25,6 +24,6 @@ function getScores(pin) {
                 score: score
             })
         }
-        console.log(scores)
+        return scores
     })
 }
