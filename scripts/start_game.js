@@ -27,9 +27,15 @@ function start(response, mode = 'S') {
 
     // show the play section
     // TODO tell players where to go to join the game
+    // add header info to users element
+    headerHTML = `<div class="col">Quiz title: ${myquiz.name}</div>
+                <div class="col">Quiz owner: ${myquiz.owner}</div>`;
+    users.innerHTML = headerHTML;
+    // setup the main play section
     questionnum.innerHTML = '---';
     question.innerHTML = `Waiting for players to join with game id ${pin}`;
     answers.style.display = 'none';
+    // collapse landing and show display
     login.style.display = 'none';
     landing.style.display = 'none';
     play.style.display = 'block';
@@ -40,9 +46,6 @@ function start(response, mode = 'S') {
     if (mode != 'S') {
         firebase.database().ref('games/'+pin).child('players').on('child_added', (snapshot) => {updateUserList(snapshot)});
         if (mode == 'B') {
-            // TODO: playerObj needs dynamic initialization based on number of questions
-            //playerObj = {'name': appUser.email, '0': [0,-1], '1': [0,-1], '2': [0,-1], '3': [0,-1], '4': [0,-1], '5': [0,-1], '6': [0,-1], '7': [0,-1], '8': [0,-1], '9': [0,-1]};
-            
             playerObj = {'name': appUser.email};
             for (let i = 0; i < myquiz.questions.length; i++) {
                 let key = i.toString();
@@ -68,7 +71,6 @@ function start(response, mode = 'S') {
         // single - player mode
         // TODO: playerObj needs dynamic initialization based on number of questions
         console.log(pin);  // temporary - in single player log pin to console so i can watch DB
-        //playerObj = {'name': appUser.email, '0': [0,-1], '1': [0,-1], '2': [0,-1], '3': [0,-1], '4': [0,-1], '5': [0,-1], '6': [0,-1], '7': [0,-1], '8': [0,-1], '9': [0,-1]};
         playerObj = {'name': appUser.email};
         for (let i = 0; i < myquiz.questions.length; i++) {
             let key = i.toString();
@@ -152,7 +154,6 @@ function rightAnswerButton(ev) {
     let buttons = answers.children;
     for (let i=0; i<buttons.length; i++) {
         buttons[i].firstChild.disabled = 'true';
-        //buttons[i].firstChild.style.color = 'lightgray';
     }
 }
 
@@ -164,7 +165,6 @@ function wrongAnswerButton(ev) {
     let buttons = answers.children;
     for (let i=0; i<buttons.length; i++) {
         buttons[i].firstChild.disabled = 'true';
-        //buttons[i].firstChild.style.color = 'lightgray';
     }
 }
 
