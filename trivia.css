@@ -26,6 +26,13 @@ body {
   min-height: 300px;
 }
 
+/* hide div overflow scrollbars in play section */
+/* fixes problem for Dan that scrollbar comes on and off during question countdown */
+#play {
+  overflow-x: hidden;
+  overflow-y: hidden;  
+}
+
 #answers {
   padding: 10px;
 }
@@ -48,14 +55,6 @@ body {
 #answers div button:hover {
   box-shadow:0 0 2px 50px navy inset;
   -webkit-transform: scale(1);
-}
-
-.wrong {
-  background-color: red;
-}
-
-.right {
-  background-color: green;
 }
 
 #users {
