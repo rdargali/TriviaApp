@@ -26,14 +26,23 @@ function displayQuestion(quiz,n) {
     questionnum.innerHTML = `Question: ${n+1}`;
     question.innerHTML = q.text;
 
-    answersHTML = [];
-    answersHTML.push(`<div class="col"><button class="right" onclick="rightAnswerButton(event);">${q.answers[q.correctanswer]}</button></div>`);
-    for (let j = 0; j < q.answers.length; j++) {
-        if (j != q.correctanswer) {
-            answersHTML.push(`<div class="col"><button class="wrong" onclick="wrongAnswerButton(event);">${q.answers[j]}</button></div>`);
+    let dispAnswers = [];
+    for (let i = 0; i < q.answers.length; i++) {
+        dispAnswers.push(q.answers[i]);
+    }
+    shuffle(dispAnswers);
+    // figure out where the right answer got shuffled to
+    for (let i = 0; i < dispAnswers.length; i++) {
+        if (dispAnswers[i] == q.answers[q.correctanswer]) {
+            dispCorrect = i;
         }
     }
-    shuffle(answersHTML);
+
+    // create the answer buttons
+    let answersHTML = [];
+    for (let i = 0; i < dispAnswers.length; i++) {
+        answersHTML.push(`<div class="col"><button id="${i}" onclick="buttonClick(event);">${dispAnswers[i]}</button></div>`);
+    }
     answers.innerHTML = answersHTML.join(' ');
 }
 
