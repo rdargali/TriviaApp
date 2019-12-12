@@ -27,10 +27,10 @@ function displayQuestion(quiz,n) {
     question.innerHTML = q.text;
 
     answersHTML = [];
-    answersHTML.push(`<div class="col"><button class="right" onclick="rightAnswerButton(event);">${q.answers[q.correctanswer]}</button></div>`);
+    answersHTML.push(`<div class="col"><button id="aButton" class="right" onclick="buttonClick(event);">${q.answers[q.correctanswer]}</button></div>`);
     for (let j = 0; j < q.answers.length; j++) {
         if (j != q.correctanswer) {
-            answersHTML.push(`<div class="col"><button class="wrong" onclick="wrongAnswerButton(event);">${q.answers[j]}</button></div>`);
+            answersHTML.push(`<div class="col"><button id="aButton" class="wrong" onclick="buttonClick(event);">${q.answers[j]}</button></div>`);
         }
     }
     shuffle(answersHTML);

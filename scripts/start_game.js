@@ -1,5 +1,6 @@
 let qindex = 0;
 let playerObj = null;
+let gameRef = null;
 let playerRef = null;
 let joinedUsers = 0;
 let responseCount = 0;
@@ -15,6 +16,7 @@ function start(response, mode = 'S') {
     // ensure we are starting with a clean slate for a new game
     qindex = 0;
     playerObj = null;
+    gameRef = null;
     playerRef = null;
     joinedUsers = 0;
     responseCount = 0;
@@ -29,6 +31,9 @@ function start(response, mode = 'S') {
     for (let i=0; i < 7; i++) {
         pin = `${pin}${getRandomInt().toString()}`;
     }
+    gameRef = firebase.database().ref('games/'+pin);
+    // set game status to JOINING
+    gameRef.child('question').set({text: 'JOINING', num: -1});
 
     // show the play section
     // TODO tell players where to go to join the game
@@ -45,18 +50,16 @@ function start(response, mode = 'S') {
     landing.style.display = 'none';
     play.style.display = 'block';
 
-    // set game status to JOINING
-    firebase.database().ref('games/'+pin).child('question').set({text: 'JOINING', num: -1});
-
     if (mode != 'S') {
-        firebase.database().ref('games/'+pin).child('players').on('child_added', (snapshot) => {updateUserList(snapshot)});
+        // multi - player mode
+        gameRef.child('players').on('child_added', (snapshot) => {updateUserList(snapshot)});
         if (mode == 'B') {
+            // this is Both mode - host is playing and remote players may join
             playerObj = {'name': appUser.email};
             for (let i = 0; i < myquiz.questions.length; i++) {
                 let key = i.toString();
                 playerObj[key] = [0, -1];
             }
-            gameRef = firebase.database().ref('games/'+pin);
             playerRef = gameRef.child('players').push(playerObj);
         }
         let countdownJoinDisp = 30;
@@ -67,13 +70,21 @@ function start(response, mode = 'S') {
             if (countdownJoinDisp == 0) {
                 clearInterval(id);
                 questionnum.innerHTML = '---';
-                qLoop(pin, myquiz, playerObj)
+                if (joinedUsers > 0) {
+                    // there is at least one player, so run the game loop
+                    qLoop(pin, myquiz, playerObj)
+                }
+                else {
+                    // nobody wanted to play with us so jump back to the landing page
+                    login.style.display = 'none';
+                    landing.style.display = 'block';
+                    play.style.display = 'none';
+                }
             }
         }
     }
     else {
         // single - player mode
-        // TODO: playerObj needs dynamic initialization based on number of questions
         console.log(pin);  // temporary - in single player log pin to console so i can watch DB
         playerObj = {'name': appUser.email};
         for (let i = 0; i < myquiz.questions.length; i++) {
@@ -144,6 +155,28 @@ function getRandomInt() {
     return Math.floor(Math.random() * 10)
 }
 
+function buttonClick(ev) {
+    // an answer button has been clicked!
+
+    // create a response object
+    let response = {'p': playerRef.key, 'q': qindex, 'r': ev.target.id};
+
+    // record this response in the responses list
+    gameRef.child('responses').push(response);
+    
+    // TODO - may need to disable this later
+        // hack to make single player work!
+    responseCount += 1;
+    // response entered - disable the buttons
+    ev.target.style.borderColor = 'red';
+    ev.target.style.borderWidth = '3px';
+    let buttons = answers.children;
+    for (let i=0; i<buttons.length; i++) {
+        buttons[i].firstChild.disabled = 'true';
+    }
+}
+
+/*
 function rightAnswerButton(ev) {
     // leader clicked the right answer
     if (playerObj != null) {
@@ -176,6 +209,7 @@ function wrongAnswerButton(ev) {
         buttons[i].firstChild.disabled = 'true';
     }
 }
+*/ 
 
 async function flashcorrect() {
     // get a handle to the correct answer button
