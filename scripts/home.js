@@ -41,7 +41,9 @@ async function getTrivia(url) {
 
 async function getToken() {
     let tokenURL = "https://opentdb.com/api_token.php?command=request"
-    sessionToken = await fetch(tokenURL)
+    let rawSessionToken = await fetch(tokenURL)
+    let sessionTokenJSON = await rawSessionToken.json()
+    sessionToken = sessionTokenJSON.token
 }
 
 async function getCategories() {
