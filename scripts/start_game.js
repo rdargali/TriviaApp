@@ -1,4 +1,5 @@
 let qindex = 0;
+let dispCorrect = -1;
 let playerObj = null;
 let gameRef = null;
 let playerRef = null;
@@ -15,6 +16,7 @@ function start(response, mode = 'S') {
 
     // ensure we are starting with a clean slate for a new game
     qindex = 0;
+    dispCorrect = -1;
     playerObj = null;
     gameRef = null;
     playerRef = null;
@@ -164,9 +166,19 @@ function buttonClick(ev) {
     // record this response in the responses list
     gameRef.child('responses').push(response);
     
-    // TODO - may need to disable this later
-        // hack to make single player work!
+    // TODO - edit this out later
+        // hacks to make single player work!
+    let key = qindex.toString();
+    if (ev.target.id == dispCorrect) {
+        playerObj[key] = [1, -1];
+    }
+    else {
+        playerObj[key] = [0, -1];
+    }
+    playerRef.set(playerObj);
     responseCount += 1;
+    // end of horrible hacks to keep things going
+
     // response entered - disable the buttons
     ev.target.style.borderColor = 'red';
     ev.target.style.borderWidth = '3px';
@@ -175,58 +187,17 @@ function buttonClick(ev) {
         buttons[i].firstChild.disabled = 'true';
     }
 }
-
-/*
-function rightAnswerButton(ev) {
-    // leader clicked the right answer
-    if (playerObj != null) {
-        playerObj[qindex] = [1, -1];
-        playerRef.set(playerObj);
-        // TODO - may need to disable this later
-        // hack to make single player work!
-        responseCount += 1;
-    }
-    // response entered - disable the buttons
-    ev.target.style.borderColor = 'red';
-    ev.target.style.borderWidth = '3px';
-    let buttons = answers.children;
-    for (let i=0; i<buttons.length; i++) {
-        buttons[i].firstChild.disabled = 'true';
-    }
-}
-
-function wrongAnswerButton(ev) {
-    // leader clicked the wrong answer
-    // just disable the buttons
-
-    // TODO - may need to disable this later
-    // hack to make single player work!
-    responseCount += 1;
-    ev.target.style.borderColor = 'red';
-    ev.target.style.borderWidth = '3px';
-    let buttons = answers.children;
-    for (let i=0; i<buttons.length; i++) {
-        buttons[i].firstChild.disabled = 'true';
-    }
-}
-*/ 
 
 async function flashcorrect() {
     // get a handle to the correct answer button
     let correctAnswerButton = -1;
     let buttons = answers.children;
-    for (let i=0; i<buttons.length; i++) {
-        //console.log(buttons[i]);
-        if (buttons[i].firstChild.className == "right") {
-            // this is the one we want
-            correctAnswerButton = i;
-        }
-    }
+    
     // flash it green 3x
     for (let i=0; i<3; i++) {
-        buttons[correctAnswerButton].firstChild.style.backgroundColor= 'lightgreen';
+        buttons[dispCorrect].firstChild.style.backgroundColor= 'lightgreen';
         await sleep(500);
-        buttons[correctAnswerButton].firstChild.style.backgroundColor= 'blueviolet';
+        buttons[dispCorrect].firstChild.style.backgroundColor= 'blueviolet';
         await sleep(500);
     }
 }
