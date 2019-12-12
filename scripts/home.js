@@ -4,6 +4,7 @@ let difficultyLevel = document.getElementById("difficulty")
 let questionType = document.getElementById("questionType")
 let goButton = document.getElementById("getem")
 let sessionToken = ""
+let modeButtons = document.getElementsByName("game-mode");
 
 goButton.addEventListener("click", () => {
     let amount = ""
@@ -33,11 +34,21 @@ goButton.addEventListener("click", () => {
 async function getTrivia(url) {
     let rawResponse = await fetch(url)
     let response = await rawResponse.json()
-    // Trivia JSON HERE!!!!
-    //use previewquiz(response) to launch previewer here or start(response) to launch a game here...
-    //previewquiz(response);
+    
+    let gamemode = '';
     if(response.response_code == 0) {
-        start(response)
+        for(let i = 0; i < modeButtons.length; i++) {
+            if (modeButtons[0].checked) {
+                gamemode = 'S';
+            }
+            else if (modeButtons[1].checked) {
+                gamemode = 'M';
+            }
+            else if (modeButtons[2].checked) {
+                gamemode = 'B';
+            }
+        }
+        start(response, gamemode)
     } else if(response.response_code == 4) {
         alert("Too many questions requested, ask for less.")
     }
