@@ -50,7 +50,8 @@ async function getTrivia(url) {
         }
         start(response, gamemode)
     } else if(response.response_code == 4) {
-        alert("Too many questions requested, ask for less.")
+        alert("Too many questions requested, ask for less. Reseting session token.")
+        resetToken()
     }
 }
 
@@ -59,6 +60,11 @@ async function getToken() {
     let rawSessionToken = await fetch(tokenURL)
     let sessionTokenJSON = await rawSessionToken.json()
     sessionToken = sessionTokenJSON.token
+}
+
+async function resetToken() {
+    let resetURL = `https://opentdb.com/api_token.php?command=reset&token=${sessionToken}`
+    await fetch(resetURL)
 }
 
 async function getCategories() {
