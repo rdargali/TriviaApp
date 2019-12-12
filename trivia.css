@@ -71,6 +71,9 @@ img {
   #animate {
     font-size: 10vw;
   }
+  #landingLeft {
+    color: white;
+  }
 }
 
 #landing select,
