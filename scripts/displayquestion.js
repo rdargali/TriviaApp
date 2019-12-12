@@ -21,21 +21,16 @@ function displayQuestion(quiz,n) {
         leaderPlayerObj = playerObj;
     }
 
-    // add header info
-    headerHTML = `<div class="col">Quiz title: ${quiz.name}</div>
-                <div class="col">Quiz owner: ${quiz.owner}</div>`;
-    users.innerHTML = headerHTML;
-
     // get the nth question from this quiz
     q = quiz.questions[n];
     questionnum.innerHTML = `Question: ${n+1}`;
     question.innerHTML = q.text;
 
     answersHTML = [];
-    answersHTML.push(`<div class="col"><button class="right" onclick="rightAnswerButton();">${q.answers[q.correctanswer]}</button></div>`);
+    answersHTML.push(`<div class="col"><button class="right" onclick="rightAnswerButton(event);">${q.answers[q.correctanswer]}</button></div>`);
     for (let j = 0; j < q.answers.length; j++) {
         if (j != q.correctanswer) {
-            answersHTML.push(`<div class="col"><button class="wrong" onclick="wrongAnswerButton();">${q.answers[j]}</button></div>`);
+            answersHTML.push(`<div class="col"><button class="wrong" onclick="wrongAnswerButton(event);">${q.answers[j]}</button></div>`);
         }
     }
     shuffle(answersHTML);

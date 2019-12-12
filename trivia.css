@@ -32,12 +32,22 @@ body {
 
 #answers div button {
   padding: 2px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   border-radius: 15%;
   color: white;
   background-color: blueviolet;
+  /* box-shadow: 5px 5px 5px; */
   min-width: 100px;
   min-height: 100px;
+  box-shadow: 0px 0 0 navy inset;
+  -webkit-transition-duration: 0.2s;
+  -webkit-transition-timing-function: linear;
+  
+}
+
+#answers div button:hover {
+  box-shadow:0 0 2px 50px navy inset;
+  -webkit-transform: scale(1);
 }
 
 .wrong {
