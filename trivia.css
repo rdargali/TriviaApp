@@ -3,8 +3,8 @@
 }
 
 body {
-  background: linear-gradient(blueviolet,black);
-  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(blueviolet, black);
+  font-family: "Roboto", sans-serif;
 }
 
 .navbar {
@@ -66,13 +66,17 @@ body {
 }
 
 /* PHONES */
-/* @media (max-width: 576px) {
-  #answers button {
+@media (max-width: 576px) {
+  /* #answers button {
     max-width: 100px;
     max-height: 100px;
     padding: 15px;
+  } */
+
+  #animate {
+    font-size: 10vw;
   }
-} */
+}
 
 #landing select,
 #getem {
@@ -90,16 +94,25 @@ body {
 }
 
 #getem {
-  height: 20%;
+  height: 50px;
 }
 
 #scoreboard {
   border: 2px solid lightgrey;
-  height: 85%;
   border-radius: 5px;
+  width: 99%;
+  text-align: center;
 }
 
 #landingRight,
 #landingLeft {
   text-align: center;
+}
+
+#animate {
+  animation-duration: 2s;
+  animation-delay: 1s;
+  font-size: 15vh;
+  font-family: "Bebas Neue", cursive;
+  bottom: 100px;
 }
