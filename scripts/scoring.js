@@ -25,16 +25,12 @@ function getScores(pin) {
             let playerGameKeys = Object.keys(playerGame)
             for(let j = 0; j < playerGameKeys.length; j++) {
                 let element = playerGame[playerGameKeys[j]]
-                // TODO - fix this for updated playerObj type
-                // if(typeof element == "number") {
-                //     score += element
-                // } 
-                // else {
-                //     name = element
-                // }
-                // TEMP to make it run
-                score = 5;
-                name = 'fix_scoring.js'
+                if(typeof element[0] == "number") {
+                    score += element[0]
+                } 
+                else {
+                    name = element
+                }
             }
             scores.push({
                 name: name,
