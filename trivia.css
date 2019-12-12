@@ -71,7 +71,7 @@ img {
   #animate {
     font-size: 10vw;
   }
-  #landingLeft {
+  #landingLeft, select {
     color: white;
   }
 }
