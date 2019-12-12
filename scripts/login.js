@@ -20,6 +20,7 @@ let appUser = {};
 
 //register button
 registerButton.addEventListener("click", () => {
+  getToken()
   let email = registerEmailTextBox.value;
   let password = registerPasswordTextBox.value;
 
@@ -36,6 +37,7 @@ registerButton.addEventListener("click", () => {
 
 //log in button
 logInButton.addEventListener("click", () => {
+  getToken()
   let email = logInEmailTextBox.value;
   let password = logInPasswordTextBox.value;
 

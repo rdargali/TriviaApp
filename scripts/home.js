@@ -3,6 +3,7 @@ let categoryMenu = document.getElementById("categoryMenu")
 let difficultyLevel = document.getElementById("difficulty")
 let questionType = document.getElementById("questionType")
 let goButton = document.getElementById("getem")
+let sessionToken = ""
 
 goButton.addEventListener("click", () => {
     let amount = ""
@@ -21,7 +22,11 @@ goButton.addEventListener("click", () => {
     if(questionType.value != "") {
         type = `&type=${questionType.value}`
     }
-    let triviaURL = `https://opentdb.com/api.php?${amount}${category}${difficulty}${type}`
+    let token = ""
+    if(sessionToken != "") {
+        token = `&token=${sessionToken}`
+    }
+    let triviaURL = `https://opentdb.com/api.php?${amount}${category}${difficulty}${type}${token}`
     getTrivia(triviaURL)
 })
 
@@ -29,11 +34,14 @@ async function getTrivia(url) {
     let rawResponse = await fetch(url)
     let response = await rawResponse.json()
     // Trivia JSON HERE!!!!
-    //console.log(response)
-
     //use previewquiz(response) to launch previewer here or start(response) to launch a game here...
     //previewquiz(response);
     start(response);
+}
+
+async function getToken() {
+    let tokenURL = "https://opentdb.com/api_token.php?command=request"
+    sessionToken = await fetch(tokenURL)
 }
 
 async function getCategories() {
