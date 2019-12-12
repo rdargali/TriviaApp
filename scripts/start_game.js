@@ -149,8 +149,8 @@ function rightAnswerButton(ev) {
         playerRef.set(playerObj);
     }
     // response entered - disable the buttons
-    ev.target.style.borderColor = 'red';
-    ev.target.style.borderWidth = '3px';
+    // ev.target.style.borderColor = 'red';
+    // ev.target.style.borderWidth = '3px';
     let buttons = answers.children;
     for (let i=0; i<buttons.length; i++) {
         buttons[i].firstChild.disabled = 'true';
@@ -160,8 +160,8 @@ function rightAnswerButton(ev) {
 function wrongAnswerButton(ev) {
     // leader clicked the wrong answer
     // just disable the buttons
-    ev.target.style.borderColor = 'red';
-    ev.target.style.borderWidth = '3px';
+    ev.target.style.opacity = '.2';
+    // ev.target.style.borderWidth = '3px';
     let buttons = answers.children;
     for (let i=0; i<buttons.length; i++) {
         buttons[i].firstChild.disabled = 'true';
