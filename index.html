@@ -6,9 +6,9 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Trivia</title>
   <!-- STYLE SHEETS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="trivia.css">
+  <link href="https://fonts.googleapis.com/css?family=Bebas+Neue|Roboto&display=swap" rel="stylesheet">   <link rel="stylesheet" href="trivia.css">
 </head>
 <body>
   <div class="container-fluid">
@@ -54,7 +54,7 @@
 </section>
 <!-- LANDING PAGE/SHOW AFTER USER LOGS IN TO GENERATE QUIZ-->
 <section id="landing" style="display:none" class="container-fluid">
-  <div class="row">
+  <div class="row justify-content-center">
     <div class="col-lg-4" id="landingLeft">
       <label># of Questions</label>
       <input id="numberOfQuestions" type="number" placeholder="Number of Questions" min="1" max="50" value="10">
@@ -72,12 +72,21 @@
         <option value="multiple">Multiple Choice</option>
         <option value="boolean">True / False</option>
       </select><br>
+      <!-- <form action="/action_page.php"></form> -->
+        <p>Select a game mode</p>
+          <input type="radio" name="game-mode" value="Single Player"> Single Player
+          <input type="radio" name="game-mode" value="Multiplayer"> Multiplayer
+          <input type="radio" name="game-mode" value="Host Only"> Host Only<br><br> 
       <button class="btn btn-dark" id="getem">Generate Quiz!</button>
-      <div id="scoreboard">Scoreboard goes here</div>
+      
     </div>
     <div class="col-lg-8" id="landingRight">
-      <!-- <img src="https://www.pngkey.com/png/full/81-815035_1a890a81-trivia-night-grpahic-transparent-trivia.png" /> -->
+      <h1 id="animate" class="animated zoomInDown">GET READY FOR<br> SOME TRIVIA!</h1>
     </div>
+  </div>
+  
+  <div class="row justify-content-center">
+    <div id="scoreboard">Leaderboard:</div>
   </div>
 </section>
 
