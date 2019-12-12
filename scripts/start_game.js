@@ -169,9 +169,9 @@ function wrongAnswerButton(ev) {
     // TODO - may need to disable this later
     // hack to make single player work!
     responseCount += 1;
-    ev.target.style.borderColor = 'red';
-    ev.target.style.borderWidth = '3px';
-    ev.target.style.opacity = '.2';
+    ev.target.style.backgroundColor = 'red';
+    // ev.target.style.borderWidth = '3px';
+    // ev.target.style.opacity = '.2';
     let buttons = answers.children;
     for (let i=0; i<buttons.length; i++) {
         buttons[i].firstChild.disabled = 'true';
