@@ -140,27 +140,31 @@ function getRandomInt() {
     return Math.floor(Math.random() * 10)
 }
 
-function rightAnswerButton() {
+function rightAnswerButton(ev) {
     // leader clicked the right answer
     if (playerObj != null) {
         playerObj[qindex] = [1, -1];
         playerRef.set(playerObj);
     }
     // response entered - disable the buttons
+    ev.target.style.borderColor = 'red';
+    ev.target.style.borderWidth = '3px';
     let buttons = answers.children;
     for (let i=0; i<buttons.length; i++) {
         buttons[i].firstChild.disabled = 'true';
-        // change color (or something) too
+        //buttons[i].firstChild.style.color = 'lightgray';
     }
 }
 
-function wrongAnswerButton() {
+function wrongAnswerButton(ev) {
     // leader clicked the wrong answer
     // just disable the buttons
+    ev.target.style.borderColor = 'red';
+    ev.target.style.borderWidth = '3px';
     let buttons = answers.children;
     for (let i=0; i<buttons.length; i++) {
         buttons[i].firstChild.disabled = 'true';
-        // change color (or something) too
+        //buttons[i].firstChild.style.color = 'lightgray';
     }
 }
 
