@@ -9,6 +9,7 @@ function start(response, mode = 'S') {
     // 'S' = single (leader) player
     // 'B' = multiplayer + admin is playing
 
+    // ensure we are starting with a clean slate for a new game
     qindex = 0;
     playerObj = null;
     playerRef = null;
@@ -25,40 +26,54 @@ function start(response, mode = 'S') {
     }
 
     // show the play section
+    // TODO tell players where to go to join the game
+    questionnum.innerHTML = '---';
+    question.innerHTML = `Waiting for players to join with game id ${pin}`;
+    answers.style.display = 'none';
     login.style.display = 'none';
     landing.style.display = 'none';
     play.style.display = 'block';
 
+    // set game status to JOINING
     firebase.database().ref('games/'+pin).child('question').set({text: 'JOINING', num: -1});
 
-    // TODO tell players where to go to join the game
     if (mode != 'S') {
-        questionnum.innerHTML = '---';
-        question.innerHTML = `Waiting for players to join with game id ${pin}`;
-        answers.style.display = 'none';
         firebase.database().ref('games/'+pin).child('players').on('child_added', (snapshot) => {updateUserList(snapshot)});
         if (mode == 'B') {
             // TODO: playerObj needs dynamic initialization based on number of questions
-            playerObj = {'name': appUser.email, '0': 0, '1': 0, '2': 0, '3': 0, '4': 0, '5': 0, '6': 0, '7': 0, '8': 0, '9': 0};
+            //playerObj = {'name': appUser.email, '0': [0,-1], '1': [0,-1], '2': [0,-1], '3': [0,-1], '4': [0,-1], '5': [0,-1], '6': [0,-1], '7': [0,-1], '8': [0,-1], '9': [0,-1]};
+            
+            playerObj = {'name': appUser.email};
+            for (let i = 0; i < myquiz.questions.length; i++) {
+                let key = i.toString();
+                playerObj[key] = [0, -1];
+            }
+
             gameRef = firebase.database().ref('games/'+pin);
             playerRef = gameRef.child('players').push(playerObj);
         }
-        setTimeout(()=>{qLoop(pin, myquiz, playerObj)},30000)
         let countdownTimeDisp = 30;
-        let id = setInterval(cdown, 1000);
-        function cdown() {
+        let id = setInterval(cdown_join, 1000);
+        function cdown_join() {
             questionnum.innerHTML = countdownTimeDisp;
             countdownTimeDisp -= 1;
             if (countdownTimeDisp == 0) {
                 clearInterval(id);
+                questionnum.innerHTML = '---';
+                qLoop(pin, myquiz, playerObj)
             }
         }
     }
     else {
         // single - player mode
         // TODO: playerObj needs dynamic initialization based on number of questions
-        console.log(pin);
-        playerObj = {'name': appUser.email, '0': 0, '1': 0, '2': 0, '3': 0, '4': 0, '5': 0, '6': 0, '7': 0, '8': 0, '9': 0};
+        console.log(pin);  // temporary - in single player log pin to console so i can watch DB
+        //playerObj = {'name': appUser.email, '0': [0,-1], '1': [0,-1], '2': [0,-1], '3': [0,-1], '4': [0,-1], '5': [0,-1], '6': [0,-1], '7': [0,-1], '8': [0,-1], '9': [0,-1]};
+        playerObj = {'name': appUser.email};
+        for (let i = 0; i < myquiz.questions.length; i++) {
+            let key = i.toString();
+            playerObj[key] = [0, -1];
+        }
         gameRef = firebase.database().ref('games/'+pin);
         playerRef = gameRef.child('players').push(playerObj);
         users.innerHTML = `${users.innerHTML}<div>${appUser.email}</div>`;
@@ -128,14 +143,25 @@ function getRandomInt() {
 function rightAnswerButton() {
     // leader clicked the right answer
     if (playerObj != null) {
-        playerObj[qindex] = 1;
+        playerObj[qindex] = [1, -1];
         playerRef.set(playerObj);
+    }
+    // response entered - disable the buttons
+    let buttons = answers.children;
+    for (let i=0; i<buttons.length; i++) {
+        buttons[i].firstChild.disabled = 'true';
+        // change color (or something) too
     }
 }
 
 function wrongAnswerButton() {
     // leader clicked the wrong answer
-    // do nothing...
+    // just disable the buttons
+    let buttons = answers.children;
+    for (let i=0; i<buttons.length; i++) {
+        buttons[i].firstChild.disabled = 'true';
+        // change color (or something) too
+    }
 }
 
 async function flashcorrect() {

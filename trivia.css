@@ -3,8 +3,8 @@
 }
 
 body {
-  background: linear-gradient(blueviolet,black);
-  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(blueviolet, black);
+  font-family: "Roboto", sans-serif;
 }
 
 .navbar {
@@ -12,10 +12,6 @@ body {
   background-color: black;
   width: 100vw;
 }
-
-/* #logOutButton {
-  background-color: black;
-} */
 
 .container-fluid {
   min-height: 100vh;
@@ -85,16 +81,25 @@ body {
 }
 
 #getem {
-  height: 20%;
+  height: 50px;
 }
 
 #scoreboard {
-  border: 2px solid lightgrey;
+  /* border: 2px solid lightgrey; */
   height: 85%;
+  min-height: 50px;
   border-radius: 5px;
 }
 
 #landingRight,
 #landingLeft {
   text-align: center;
+}
+
+#animate {
+  animation-duration: 2s;
+  animation-delay: 1s;
+  font-size: 15vw;
+  font-family: "Bebas Neue", cursive;
+  bottom: 100px;
 }
