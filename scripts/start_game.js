@@ -67,11 +67,11 @@ function start(response, mode = 'S') {
         let countdownJoinDisp = 30;
         let id = setInterval(cdown_join, 1000);
         function cdown_join() {
-            questionnum.innerHTML = countdownJoinDisp;
+            countdown.innerHTML = countdownJoinDisp;
             countdownJoinDisp -= 1;
             if (countdownJoinDisp == 0) {
                 clearInterval(id);
-                questionnum.innerHTML = '---';
+                countdown.innerHTML = '---';
                 if (joinedUsers > 0) {
                     // there is at least one player, so run the game loop
                     qLoop(pin, myquiz, playerObj)
@@ -113,13 +113,15 @@ async function qLoop(pin, myquiz) {
     for (qindex = 0; qindex < myquiz.questions.length; qindex++) {
         responseCount = 0;
         // display the question
-        firebase.database().ref('games/'+pin).child('question').set({text: myquiz.questions[qindex].text, qindex: qindex});
+        gameRef.child('question').set({text: myquiz.questions[qindex].text, qindex: qindex});
         displayQuestion(myquiz, qindex);
+        gameRef.child('responses').on('value', (snapshot) => {responseAdded(snapshot)});
         await qTimer(15);
+        gameRef.child('responses').off('value');
         await flashcorrect();
     }
     // no more questions
-    firebase.database().ref('games/'+pin).child('question').set({text: 'GAME_OVER', qindex: -1});    
+    gameRef.child('question').set({text: 'GAME_OVER', qindex: -1});    
     getScores(pin);
     questionnum.innerHTML = '---';
     question.innerHTML = `GAME_OVER`;
@@ -138,7 +140,6 @@ async function qTimer(delaySecs) {
         await sleep(1000);
         countdownTimeDisp -= 1;
         // check for responses
-        // TODO - fix for multiplayer
         if (responseCount == joinedUsers) {
             // if everybody has responded fast forward to end...
             countdownTimeDisp = 0;
@@ -150,6 +151,22 @@ async function qTimer(delaySecs) {
 function updateUserList(snapshot) {
     users.innerHTML = `${users.innerHTML}<div>${snapshot.val().name}</div>`;
     joinedUsers += 1;
+}
+
+function responseAdded(snapshot) {
+    // update current response count for this question
+    let responses = snapshot.val();
+    let count = 0;
+    if (responses != null) {
+        console.log(responses);
+        for (let i = 0; i < responses.length; i++) {
+            console.log(responses[i].q)
+            if (responses[i].q == qindex) {
+                count += 1;
+            }
+        }
+    }
+    responseCount = count;
 }
 
 function getRandomInt() {
@@ -176,7 +193,6 @@ function buttonClick(ev) {
         playerObj[key] = [0, -1];
     }
     playerRef.set(playerObj);
-    responseCount += 1;
     // end of horrible hacks to keep things going
 
     // response entered - disable the buttons
