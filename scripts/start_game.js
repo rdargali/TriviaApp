@@ -1,9 +1,12 @@
 let qindex = 0;
 let playerObj = null;
 let playerRef = null;
+let joinedUsers = 0;
+let responseCount = 0;
 
 function start(response, mode = 'S') {
     // response is quiz data from the trivia API
+
     // mode is a character indicating play mode:
     // 'M' = multiplayer
     // 'S' = single (leader) player
@@ -13,6 +16,8 @@ function start(response, mode = 'S') {
     qindex = 0;
     playerObj = null;
     playerRef = null;
+    joinedUsers = 0;
+    responseCount = 0;
 
     // this bit needs to move into user's list handler section
     let myquiz = readquiz('Trivia API',appUser.email,response);
@@ -51,16 +56,15 @@ function start(response, mode = 'S') {
                 let key = i.toString();
                 playerObj[key] = [0, -1];
             }
-
             gameRef = firebase.database().ref('games/'+pin);
             playerRef = gameRef.child('players').push(playerObj);
         }
-        let countdownTimeDisp = 30;
+        let countdownJoinDisp = 30;
         let id = setInterval(cdown_join, 1000);
         function cdown_join() {
-            questionnum.innerHTML = countdownTimeDisp;
-            countdownTimeDisp -= 1;
-            if (countdownTimeDisp == 0) {
+            questionnum.innerHTML = countdownJoinDisp;
+            countdownJoinDisp -= 1;
+            if (countdownJoinDisp == 0) {
                 clearInterval(id);
                 questionnum.innerHTML = '---';
                 qLoop(pin, myquiz, playerObj)
@@ -79,64 +83,62 @@ function start(response, mode = 'S') {
         gameRef = firebase.database().ref('games/'+pin);
         playerRef = gameRef.child('players').push(playerObj);
         users.innerHTML = `${users.innerHTML}<div>${appUser.email}</div>`;
+        joinedUsers += 1;
         qLoop(pin, myquiz, playerObj);
     }
 }
 
-function qLoop(pin, myquiz, playerObj) {
-    // questions loop
-    // show question, record responses, if no response deem wrong - show # playing & # responded
-    // if all responded move on before timeout
-    countdownTimeDisp = 15;
-    displayQuestion(myquiz, qindex);
+async function qLoop(pin, myquiz) {
+    // this is the main game loop!
+    // show a question, start countdown a timer
+    // if all users have responded jump to next question
+    
+    // show the answer buttons
     answers.style.display = 'flex';
-    firebase.database().ref('games/'+pin).child('question').set({text: myquiz.questions[qindex].text, qindex: qindex});
-    cid = setInterval(cdown1, 1000);
-    function cdown1() {
+
+    // iterate over the questions in this quiz
+    for (qindex = 0; qindex < myquiz.questions.length; qindex++) {
+        responseCount = 0;
+        // display the question
+        firebase.database().ref('games/'+pin).child('question').set({text: myquiz.questions[qindex].text, qindex: qindex});
+        displayQuestion(myquiz, qindex);
+        await qTimer(15);
+        await flashcorrect();
+    }
+    // no more questions
+    firebase.database().ref('games/'+pin).child('question').set({text: 'GAME_OVER', qindex: -1});    
+    getScores(pin);
+    questionnum.innerHTML = '---';
+    question.innerHTML = `GAME_OVER`;
+    answers.style.display = 'none';
+    setTimeout(() => { login.style.display = 'none';
+                       landing.style.display = 'block';
+                       play.style.display = 'none';
+                       },3000);
+}
+
+async function qTimer(delaySecs) {
+    // countdown timer
+    let countdownTimeDisp = delaySecs;
+    while (countdownTimeDisp>0) {
         countdown.innerHTML = countdownTimeDisp;
+        await sleep(1000);
         countdownTimeDisp -= 1;
-            if (countdownTimeDisp == 0) {
-                clearInterval(cid);
-            }
-        }
-   let id = setInterval(func, 19000);    // set for ~15 second delay; adjust countdowns above and in func() if needed!
-   async function func() {
-       await flashcorrect();   // flashing correct answer eats 3000 ms
-       qindex += 1;
-       if (qindex == myquiz.questions.length) {
-            // last question displayed...
-           
-            clearInterval(id);
-            firebase.database().ref('games/'+pin).child('question').set({text: 'GAME_OVER', qindex: -1});    
-            getScores(pin)
-            questionnum.innerHTML = '---';
-            question.innerHTML = `GAME_OVER`;
-            answers.style.display = 'none';
-            setTimeout(() => { login.style.display = 'none';
-                               landing.style.display = 'block';
-                               play.style.display = 'none';
-                               },5000);
-        }
-        else {
-            // show the next question
-            displayQuestion(myquiz, qindex);
-            firebase.database().ref('games/'+pin).child('question').set({text: myquiz.questions[qindex].text, qindex: qindex});
-            countdownTimeDisp = 15;
-            cid = setInterval(cdown2, 1000);
-            function cdown2() {
-                countdown.innerHTML = countdownTimeDisp;
-                countdownTimeDisp -= 1;
-                if (countdownTimeDisp == 0) {
-                    clearInterval(cid);
-                }
-            }
+        // check for responses
+        // TODO - fix for multiplayer
+        if (responseCount == joinedUsers) {
+            // if everybody has responded fast forward to end...
+            countdownTimeDisp = 0;
+            countdown.innerHTML = '---';
         }
     }
 }
 
 function updateUserList(snapshot) {
     users.innerHTML = `${users.innerHTML}<div>${snapshot.val().name}</div>`;
+    joinedUsers += 1;
 }
+
 function getRandomInt() {
     // get a random integer 0 - 9
     return Math.floor(Math.random() * 10)
@@ -147,6 +149,9 @@ function rightAnswerButton(ev) {
     if (playerObj != null) {
         playerObj[qindex] = [1, -1];
         playerRef.set(playerObj);
+        // TODO - may need to disable this later
+        // hack to make single player work!
+        responseCount += 1;
     }
     // response entered - disable the buttons
     // ev.target.style.borderColor = 'red';
@@ -160,8 +165,13 @@ function rightAnswerButton(ev) {
 function wrongAnswerButton(ev) {
     // leader clicked the wrong answer
     // just disable the buttons
+
+    // TODO - may need to disable this later
+    // hack to make single player work!
+    responseCount += 1;
+    ev.target.style.borderColor = 'red';
+    ev.target.style.borderWidth = '3px';
     ev.target.style.opacity = '.2';
-    // ev.target.style.borderWidth = '3px';
     let buttons = answers.children;
     for (let i=0; i<buttons.length; i++) {
         buttons[i].firstChild.disabled = 'true';
