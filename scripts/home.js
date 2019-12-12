@@ -36,7 +36,11 @@ async function getTrivia(url) {
     // Trivia JSON HERE!!!!
     //use previewquiz(response) to launch previewer here or start(response) to launch a game here...
     //previewquiz(response);
-    start(response);
+    if(response.response_code == 0) {
+        start(response)
+    } else if(response.response_code == 4) {
+        alert("Too many questions requested, ask for less.")
+    }
 }
 
 async function getToken() {
