@@ -7,10 +7,10 @@ This applications uses Google Firebase
 Application API: https://opentdb.com
 
 ## Authors
-    * **Summer Brown**
-    * **Rawand Dargali**
-    * **Dan Ochs**
-    * **Ian Sear**
+    Summer Brown
+    Rawand Dargali
+    Dan Ochs
+    Ian Sear
 
 ![Login Screen](screen_shot_2019-12-13_at_10.46.22_am.png)
 ![Home Screen](screen_shot_2019-12-13_at_12.22.40_pm.png)
