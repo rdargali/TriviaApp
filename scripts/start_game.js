@@ -75,7 +75,7 @@ function start(response, mode = 'S') {
                 countdown.innerHTML = '---';
                 if (joinedUsers > 0) {
                     // there is at least one player, so run the game loop
-                    qLoop(pin, myquiz, playerObj, mode)
+                    qLoop(pin, myquiz, mode)
                 }
                 else {
                     // nobody wanted to play with us so jump back to the landing page
@@ -98,7 +98,7 @@ function start(response, mode = 'S') {
         playerRef = gameRef.child('players').push(playerObj);
         users.innerHTML = `${users.innerHTML}<div id="${playerRef.key}">${appUser.email}</div>`;
         joinedUsers += 1;
-        qLoop(pin, myquiz, playerObj, mode);
+        qLoop(pin, myquiz, mode);
     }
 }
 

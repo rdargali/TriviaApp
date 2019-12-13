@@ -49,7 +49,7 @@ function displayQuestion(quiz, n, activeButtons = true) {
         }
         else
         {
-            answersHTML.push(`<div class="col"><button id="${i}" disabled="true" onclick="buttonClick(event);">${dispAnswers[i]}</button></div>`);
+            answersHTML.push(`<div class="col"><button id="${i}" disabled onclick="buttonClick(event);">${dispAnswers[i]}</button></div>`);
         }
     }
     answers.innerHTML = answersHTML.join(' ');
