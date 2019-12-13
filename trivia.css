@@ -127,7 +127,7 @@ img {
   margin: 0;
 }
 
-/* PHONES */
+/* PHONE */
 @media (max-width: 812px) {
   #animate {
     font-size: 5rem;
