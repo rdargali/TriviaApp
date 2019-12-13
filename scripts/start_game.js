@@ -35,7 +35,10 @@ function start(response, mode = 'S') {
     }
     gameRef = firebase.database().ref('games/'+pin);
     // set game status to JOINING
-    gameRef.child('question').set({text: 'JOINING', num: -1});
+    gameRef.child('question').set({text: 'JOINING', num: myquiz.questions.length});
+
+    // force users section to display
+    users.style.display = 'flex';
 
     // show the play section
     // TODO tell players where to go to join the game
@@ -95,7 +98,7 @@ function start(response, mode = 'S') {
         }
         gameRef = firebase.database().ref('games/'+pin);
         playerRef = gameRef.child('players').push(playerObj);
-        users.innerHTML = `${users.innerHTML}<div>${appUser.email}</div>`;
+        users.innerHTML = `${users.innerHTML}<div id="${playerRef.key}">${appUser.email}</div>`;
         joinedUsers += 1;
         qLoop(pin, myquiz, playerObj);
     }
@@ -109,15 +112,20 @@ async function qLoop(pin, myquiz) {
     // show the answer buttons
     answers.style.display = 'flex';
 
+    // attach response listener for this game
+    gameRef.child('responses').on('child_added', (snapshot) => {responseAdded(snapshot)});
+
     // iterate over the questions in this quiz
     for (qindex = 0; qindex < myquiz.questions.length; qindex++) {
-        responseCount = 0;
+        responseCount = 0;    // reset the responses counter
+        // reset all the users displayed to 'not responded yet state'
+        users_elements = users.children;
+        for (let i = 0; i < users_elements.length; i++) {
+            users_elements[i].style.color = 'white';
+        }
         // display the question
-        gameRef.child('question').set({text: myquiz.questions[qindex].text, qindex: qindex});
         displayQuestion(myquiz, qindex);
-        gameRef.child('responses').on('value', (snapshot) => {responseAdded(snapshot)});
         await qTimer(15);
-        gameRef.child('responses').off('value');
         await flashcorrect();
     }
     // no more questions
@@ -126,6 +134,7 @@ async function qLoop(pin, myquiz) {
     questionnum.innerHTML = '---';
     question.innerHTML = `GAME_OVER`;
     answers.style.display = 'none';
+    gameRef.child('responses').off('child_added');
     setTimeout(() => { login.style.display = 'none';
                        landing.style.display = 'block';
                        play.style.display = 'none';
@@ -155,18 +164,15 @@ function updateUserList(snapshot) {
 
 function responseAdded(snapshot) {
     // update current response count for this question
-    let responses = snapshot.val();
-    let count = 0;
-    if (responses != null) {
-        console.log(responses);
-        for (let i = 0; i < responses.length; i++) {
-            console.log(responses[i].q)
-            if (responses[i].q == qindex) {
-                count += 1;
-            }
-        }
+    let response = snapshot.val();
+    //console.log(response['p']);    // this is the player key
+    //console.log(response['q']);    // this is the question index
+    //console.log(response['r']);    // this is the response
+    if (response['q'] == qindex) {   // check that we're on the right question
+        responseCount += 1;          // increment the response count
+        let responded = document.getElementById(response['p']);
+        responded.style.color = 'red';
     }
-    responseCount = count;
 }
 
 function getRandomInt() {
