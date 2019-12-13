@@ -139,6 +139,9 @@ img {
   #answers div button {
     box-shadow: 3px 3px 3px;
   }
+  #answers div button:hover {
+    border: none;
+  }
   #answers div button:focus {
     outline: none;
   }
