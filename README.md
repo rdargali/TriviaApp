@@ -6,13 +6,15 @@ This applications uses Google Firebase
 
 Application API: https://opentdb.com
 
-## Authors:
+## Authors
     * **Summer Brown**
     * **Rawand Dargali**
     * **Dan Ochs**
     * **Ian Sear**
 
-![Image description](link-to-image)
+![Login Screen](screen_shot_2019-12-13_at_10.46.22_am.png)
+![Home Screen](screen_shot_2019-12-13_at_12.22.40_pm.png)
+![In play](screen_shot_2019-12-13_at_12.28.18_pm.png)
 
 DigitalCrafts November 2019 Cohort
 UI Project
