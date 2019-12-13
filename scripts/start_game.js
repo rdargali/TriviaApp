@@ -35,7 +35,7 @@ function start(response, mode = 'S') {
     }
     gameRef = firebase.database().ref('games/'+pin);
     // set game status to JOINING
-    gameRef.child('question').set({text: 'JOINING', num: myquiz.questions.length});
+    gameRef.child('question').set({text: 'JOINING', num: myquiz.questions.length, ans: -1});
 
     // show the play section
     // TODO tell players where to go to join the game
@@ -122,6 +122,7 @@ async function qLoop(pin, myquiz, mode) {
             users_elements[i].style.color = 'white';
         }
         // display the question
+        gameRef.child('question').set({text: myquiz.questions[qindex].text, num: qindex, ans: myquiz.questions[qindex].answers.length});
         if (mode == 'M') {
             displayQuestion(myquiz, qindex, false);
         }
@@ -134,24 +135,26 @@ async function qLoop(pin, myquiz, mode) {
         let resp_correct = dispCorrect;
         gameRef.child('players').once('value', (players_snapshot) => {
             gameRef.child('responses').once('value', (responses_snapshot) => {
-                order = 0;
-                let sv_players = players_snapshot.val();
-                let sv_responses = responses_snapshot.val();
-                let keys = Object.keys(sv_responses);
-                for (let i=0; i<keys.length; i++) {
-                    if (sv_responses[keys[i]]['q'] == resp_q) {    // is this a response to current question?
-                        let resp_playerObj = sv_players[sv_responses[keys[i]]['p']] // get the starting playerObj
-                        if(sv_responses[keys[i]]['r'] == resp_correct)  {  // is this a correct response?
-                            order += 1;
-                            resp_playerObj[resp_q] = [1, order];
+                if (responses_snapshot.exists()) {   // only go forward if someone has responded to something
+                    order = 0;
+                    let sv_players = players_snapshot.val();
+                    let sv_responses = responses_snapshot.val();
+                    let keys = Object.keys(sv_responses);
+                    for (let i=0; i<keys.length; i++) {
+                        if (sv_responses[keys[i]]['q'] == resp_q) {    // is this a response to current question?
+                            let resp_playerObj = sv_players[sv_responses[keys[i]]['p']] // get the starting playerObj
+                            if(sv_responses[keys[i]]['r'] == resp_correct)  {  // is this a correct response?
+                                order += 1;
+                                resp_playerObj[resp_q] = [1, order];
+                            }
+                            else
+                            {
+                                resp_playerObj[resp_q] = [0, -1];
+                            }
+                            // update this player's playerObj with this response - if a player didn't respond
+                            // default [0,-1] in playerObj from initialization is the right entry
+                            gameRef.child('players').child(sv_responses[keys[i]]['p']).set(resp_playerObj);
                         }
-                        else
-                        {
-                            resp_playerObj[resp_q] = [0, -1];
-                        }
-                        // update this player's playerObj with this response - if a player didn't respond
-                        // default [0,-1] in playerObj from initialization is the right entry
-                        gameRef.child('players').child(sv_responses[keys[i]]['p']).set(resp_playerObj);
                     }
                 }
             });
@@ -159,7 +162,7 @@ async function qLoop(pin, myquiz, mode) {
         await flashcorrect();
     }
     // no more questions
-    gameRef.child('question').set({text: 'GAME_OVER', qindex: -1});    
+    gameRef.child('question').set({text: 'GAME_OVER', num: -1, ans: -1});    
     getScores(pin);
     questionnum.innerHTML = '---';
     question.innerHTML = `GAME_OVER`;
