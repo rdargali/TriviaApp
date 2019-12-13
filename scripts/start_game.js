@@ -39,13 +39,17 @@ function start(response, mode = 'S') {
 
     // show the play section
     // TODO tell players where to go to join the game
+    
     // add header info to users element
+    /*
     headerHTML = `<div class="col">Quiz title: ${myquiz.name}</div>
                 <div class="col">Quiz owner: ${myquiz.owner}</div>`;
     users.innerHTML = headerHTML;
+    */
+
     // setup the main play section
     questionnum.innerHTML = '---';
-    question.innerHTML = `Waiting for players to join with game id ${pin}`;
+    question.innerHTML = `Waiting for players to join with game id ${pin} at https://danochs99.github.io/TriviaPlayerApp/`;
     answers.style.display = 'none';
     // collapse landing and show display
     login.style.display = 'none';
