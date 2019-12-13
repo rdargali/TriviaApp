@@ -1,3 +1,14 @@
+/* PHONES */
+@media (max-width: 576px) {
+  #animate {
+    font-size: 10vw;
+  }
+  #landingLeft,
+  select {
+    color: white;
+  }
+}
+
 * {
   margin: 0;
 }
@@ -39,7 +50,7 @@ img {
 /* fixes problem for Dan that scrollbar comes on and off during question countdown */
 #play {
   overflow-x: hidden;
-  overflow-y: hidden;  
+  overflow-y: hidden;
 }
 
 #answers {
@@ -60,7 +71,7 @@ img {
   -webkit-transition-timing-function: linear;
 }
 #answers div button:hover {
-  box-shadow:0 0 2px 50px navy inset;
+  box-shadow: 0 0 2px 50px navy inset;
   -webkit-transform: scale(1);
 }
 
@@ -69,16 +80,6 @@ img {
   position: fixed;
   width: 100%;
   min-height: 150px;
-}
-
-/* PHONES */
-@media (max-width: 576px) {
-  #animate {
-    font-size: 10vw;
-  }
-  #landingLeft, select {
-    color: white;
-  }
 }
 
 #landing select,
@@ -118,4 +119,8 @@ img {
   font-size: 15vh;
   font-family: "Bebas Neue", cursive;
   bottom: 100px;
+}
+
+.fBtn {
+  width: 6rem;
 }
