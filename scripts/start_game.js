@@ -77,7 +77,7 @@ function start(response, mode = 'S') {
                 countdown.innerHTML = '---';
                 if (joinedUsers > 0) {
                     // there is at least one player, so run the game loop
-                    qLoop(pin, myquiz, playerObj)
+                    qLoop(pin, myquiz, playerObj, mode)
                 }
                 else {
                     // nobody wanted to play with us so jump back to the landing page
@@ -100,11 +100,11 @@ function start(response, mode = 'S') {
         playerRef = gameRef.child('players').push(playerObj);
         users.innerHTML = `${users.innerHTML}<div id="${playerRef.key}">${appUser.email}</div>`;
         joinedUsers += 1;
-        qLoop(pin, myquiz, playerObj);
+        qLoop(pin, myquiz, playerObj, mode);
     }
 }
 
-async function qLoop(pin, myquiz) {
+async function qLoop(pin, myquiz, mode) {
     // this is the main game loop!
     // show a question, start countdown a timer
     // if all users have responded jump to next question
@@ -124,8 +124,40 @@ async function qLoop(pin, myquiz) {
             users_elements[i].style.color = 'white';
         }
         // display the question
-        displayQuestion(myquiz, qindex);
+        if (mode == 'M') {
+            displayQuestion(myquiz, qindex, false);
+        }
+        else {
+            displayQuestion(myquiz, qindex);
+        }
         await qTimer(15);
+        // tally responses to this question here
+        let resp_q = qindex;
+        let resp_correct = dispCorrect;
+        gameRef.child('players').once('value', (players_snapshot) => {
+            gameRef.child('responses').once('value', (responses_snapshot) => {
+                order = 0;
+                let sv_players = players_snapshot.val();
+                let sv_responses = responses_snapshot.val();
+                let keys = Object.keys(sv_responses);
+                for (let i=0; i<keys.length; i++) {
+                    if (sv_responses[keys[i]]['q'] == resp_q) {    // is this a response to current question?
+                        let resp_playerObj = sv_players[sv_responses[keys[i]]['p']] // get the starting playerObj
+                        if(sv_responses[keys[i]]['r'] == resp_correct)  {  // is this a correct response?
+                            order += 1;
+                            resp_playerObj[resp_q] = [1, order];
+                        }
+                        else
+                        {
+                            resp_playerObj[resp_q] = [0, -1];
+                        }
+                        // update this player's playerObj with this response - if a player didn't respond
+                        // default [0,-1] in playerObj from initialization is the right entry
+                        gameRef.child('players').child(sv_responses[keys[i]]['p']).set(resp_playerObj);
+                    }
+                }
+            });
+        });
         await flashcorrect();
     }
     // no more questions
@@ -158,7 +190,7 @@ async function qTimer(delaySecs) {
 }
 
 function updateUserList(snapshot) {
-    users.innerHTML = `${users.innerHTML}<div>${snapshot.val().name}</div>`;
+    users.innerHTML = `${users.innerHTML}<div id="${snapshot.key}">${snapshot.val().name}</div>`;
     joinedUsers += 1;
 }
 
@@ -188,18 +220,6 @@ function buttonClick(ev) {
 
     // record this response in the responses list
     gameRef.child('responses').push(response);
-    
-    // TODO - edit this out later
-        // hacks to make single player work!
-    let key = qindex.toString();
-    if (ev.target.id == dispCorrect) {
-        playerObj[key] = [1, -1];
-    }
-    else {
-        playerObj[key] = [0, -1];
-    }
-    playerRef.set(playerObj);
-    // end of horrible hacks to keep things going
 
     // response entered - disable the buttons
     ev.target.style.backgroundColor = 'red';
