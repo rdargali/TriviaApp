@@ -37,9 +37,6 @@ function start(response, mode = 'S') {
     // set game status to JOINING
     gameRef.child('question').set({text: 'JOINING', num: myquiz.questions.length});
 
-    // force users section to display
-    users.style.display = 'flex';
-
     // show the play section
     // TODO tell players where to go to join the game
     // add header info to users element
@@ -57,6 +54,7 @@ function start(response, mode = 'S') {
 
     if (mode != 'S') {
         // multi - player mode
+        users.style.display = 'flex';
         gameRef.child('players').on('child_added', (snapshot) => {updateUserList(snapshot)});
         if (mode == 'B') {
             // this is Both mode - host is playing and remote players may join
