@@ -39,7 +39,7 @@ img {
 /* fixes problem for Dan that scrollbar comes on and off during question countdown */
 #play {
   overflow-x: hidden;
-  overflow-y: hidden;  
+  overflow-y: hidden;
 }
 
 #answers {
@@ -60,7 +60,7 @@ img {
   -webkit-transition-timing-function: linear;
 }
 #answers div button:hover {
-  box-shadow:0 0 2px 50px navy inset;
+  box-shadow: 0 0 2px 50px navy inset;
   -webkit-transform: scale(1);
 }
 
@@ -69,16 +69,6 @@ img {
   position: fixed;
   width: 100%;
   min-height: 150px;
-}
-
-/* PHONES */
-@media (max-width: 576px) {
-  #animate {
-    font-size: 10vw;
-  }
-  #landingLeft, select {
-    color: white;
-  }
 }
 
 #landing select,
@@ -115,7 +105,47 @@ img {
 #animate {
   animation-duration: 2s;
   animation-delay: 1s;
-  font-size: 15vh;
   font-family: "Bebas Neue", cursive;
   bottom: 100px;
+}
+
+.fBtn {
+  width: 6rem;
+}
+
+.RL {
+  display: block;
+  font-size: 1.5rem;
+  /* margin-top: 1em; */
+  margin-bottom: 0.4em;
+  margin-left: 1rem;
+  margin-right: 0;
+  font-weight: bold;
+}
+
+.rlForm {
+  margin: 0;
+}
+
+/* PHONE */
+@media (max-width: 812px) {
+  #animate {
+    font-size: 5rem;
+  }
+  #landingLeft,
+  select {
+    color: white;
+  }
+  #answers div button {
+    box-shadow: 3px 3px 3px;
+  }
+  #answers div button:focus {
+    outline: none;
+  }
+}
+/* Web */
+@media (min-width: 600px) {
+  #animate {
+    font-size: 13vh;
+  }
 }
