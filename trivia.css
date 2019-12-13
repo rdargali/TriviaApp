@@ -56,13 +56,6 @@ img {
   background-color: blueviolet;
   min-width: 100px;
   min-height: 100px;
-  box-shadow: 0px 0 0 navy inset;
-  -webkit-transition-duration: 0.2s;
-  -webkit-transition-timing-function: linear;
-}
-#answers div button:hover {
-  box-shadow: 0 0 2px 50px navy inset;
-  -webkit-transform: scale(1);
 }
 
 #users {
@@ -148,7 +141,17 @@ img {
   }
 }
 /* Web */
-@media (min-width: 600px) {
+@media (min-width: 813px) {
+  #answers div button {
+    box-shadow: 0px 0 0 navy inset;
+    -webkit-transition-duration: 0.2s;
+    -webkit-transition-timing-function: linear;
+  }
+
+  #answers div button:hover {
+    box-shadow: 0 0 2px 50px navy inset;
+    -webkit-transform: scale(1);
+  }
   #animate {
     font-size: 13vh;
   }
