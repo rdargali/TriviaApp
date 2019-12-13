@@ -223,7 +223,7 @@ function buttonClick(ev) {
     gameRef.child('responses').push(response);
 
     // response entered - disable the buttons
-    ev.target.style.backgroundColor = 'red';
+    ev.target.style.backgroundColor = 'navy';
 
     let buttons = answers.children;
     for (let i=0; i<buttons.length; i++) {
