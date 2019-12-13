@@ -1,14 +1,3 @@
-/* PHONES */
-@media (max-width: 576px) {
-  #animate {
-    font-size: 10vw;
-  }
-  #landingLeft,
-  select {
-    color: white;
-  }
-}
-
 * {
   margin: 0;
 }
@@ -116,7 +105,6 @@ img {
 #animate {
   animation-duration: 2s;
   animation-delay: 1s;
-  font-size: 15vh;
   font-family: "Bebas Neue", cursive;
   bottom: 100px;
 }
@@ -133,4 +121,31 @@ img {
   margin-left: 1rem;
   margin-right: 0;
   font-weight: bold;
+}
+
+.rlForm {
+  margin: 0;
+}
+
+/* PHONES */
+@media (max-width: 812px) {
+  #animate {
+    font-size: 5rem;
+  }
+  #landingLeft,
+  select {
+    color: white;
+  }
+  #answers div button {
+    box-shadow: 3px 3px 3px;
+  }
+  #answers div button:focus {
+    outline: none;
+  }
+}
+/* Web */
+@media (min-width: 600px) {
+  #animate {
+    font-size: 13vh;
+  }
 }
