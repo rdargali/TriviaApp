@@ -194,8 +194,9 @@ async function qTimer(delaySecs) {
     }
 }
 
+//change class from col to flex-wrap so that usernames can wrap to fit area
 function updateUserList(snapshot) {
-    users.innerHTML = `${users.innerHTML}<div id="${snapshot.key}" class="col">${snapshot.val().name}</div>`;
+    users.innerHTML = `${users.innerHTML}<div id="${snapshot.key}" class="d-flex flex-wrap">${snapshot.val().name}</div>`;
     joinedUsers += 1;
 }
 
